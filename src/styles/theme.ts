@@ -13,12 +13,85 @@ const colors = {
 };
 
 const fonts = {
-  Title: css`
-  font-family: 'SUIT';
+  big_title: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 2.8rem;
+  letter-spacing: -3%;
+  `,
+  title: css`
+  font-family: 'SpoqaHanSansNeo';
   font-size: 2.4rem;
   font-style: normal;
-  font-weight: 600;
-  line-height: 150%;
+  font-weight: bold;
+  letter-spacing: -3%;
+  `,  
+  font_01: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 2.8rem;
+  letter-spacing: -3%;
+  `,  
+  font_02: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: -3%;
+  `,  
+  font_03: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 2.4rem;
+  letter-spacing: -3%;
+  `,  
+  font_04: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: -3%;
+  `,  
+  font_05: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -3%;
+  `,  
+  font_06: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: -3%;
+  `,  
+  font_07: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: -3%;
+  `,  
+  font_08: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: -3%;
+  `,
+  font_09: css`
+  font-family: 'SpoqaHanSansNeo';
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: -3%;
   `,
 };
 
