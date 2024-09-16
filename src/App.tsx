@@ -1,8 +1,11 @@
+import { RouterProvider } from 'react-router-dom'
+import router from './router/Router'
+
 function App() {
 
   return (
     <>
-      조각집
+      <RouterProvider router={router} />
     </>
   )
 }
