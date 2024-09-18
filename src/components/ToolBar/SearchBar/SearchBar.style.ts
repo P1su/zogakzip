@@ -11,10 +11,9 @@ export const Input = styled.input`
   height: 4.5rem;
   border: none;
   border-radius: 6px;
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 1rem 2rem 1rem 5rem;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.G_02};
-    padding-left: 3rem;
   }
 `;
