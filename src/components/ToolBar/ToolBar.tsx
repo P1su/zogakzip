@@ -2,6 +2,7 @@ import * as S from './ToolBar.style';
 import { useState } from 'react';
 import Toggle from './Toggle/Toggle';
 import SearchBar from './SearchBar/SearchBar';
+import Dropdown from './Dropdown/Dropdown';
 
 const ToolBar = () => {
   const [isOn, setIsOn] = useState<boolean>(true);
@@ -26,6 +27,7 @@ const ToolBar = () => {
         비공개
       </Toggle>
       <SearchBar />
+      <Dropdown />
     </S.ToolBarWrapper>
   );
 };
