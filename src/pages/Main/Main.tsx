@@ -1,9 +1,9 @@
 import BtnSmall from '../../components/button/SmallButton/BtnSmall';
-import * as S from './Start.style';
+import * as S from './Main.style';
 
-const Start = () => {
+const Main = () => {
   return(
-    <S.StartWrapper>
+    <S.MainWrapper>
       <S.ButtonField>
         <BtnSmall onClick={() => alert('')}>
           그룹 만들기
@@ -11,8 +11,8 @@ const Start = () => {
       </S.ButtonField>
 
       시작 페이지입니다
-    </S.StartWrapper>
+    </S.MainWrapper>
   );
 }
 
-export default Start;
+export default Main;
