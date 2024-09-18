@@ -7,7 +7,7 @@ interface BtnSmallProps {
 
 const BtnSmall = ({ onClick, children }: BtnSmallProps) => {
   return(
-    <S.SmallButton onClick={() => onClick}>
+    <S.SmallButton onClick={() => onClick()}>
       {children}
     </S.SmallButton>
   );

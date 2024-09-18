@@ -7,7 +7,7 @@ interface BtnLargeProps {
 
 const BtnLarge = ({ onClick, children }: BtnLargeProps) => {
   return(
-    <S.LargeButton onClick={() => onClick}>
+    <S.LargeButton onClick={() => onClick()}>
       {children}
     </S.LargeButton>
   );
