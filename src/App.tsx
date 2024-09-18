@@ -1,10 +1,17 @@
-function App() {
+import * as S from './App.style';
+import router from './router/Router';
+import { RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+function App() {
+  const queryClient = new QueryClient();
   return (
-    <>
-      조각집
-    </>
-  )
+    <S.Wrapper>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </S.Wrapper>
+  );
 }
 
-export default App
+export default App;
