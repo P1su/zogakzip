@@ -12,20 +12,22 @@ const ToolBar = () => {
   
   return(
     <S.ToolBarWrapper>
-      <Toggle
-        isOn={isOn}
-        onToggle={handelToggle}
-        size='small'
-      >
-        공개
-      </Toggle>
-      <Toggle
-        isOn={!isOn}
-        onToggle={handelToggle}
-        size='large'
-      >
-        비공개
-      </Toggle>
+      <S.TagBox>
+        <Toggle
+          isOn={isOn}
+          onToggle={handelToggle}
+          size='small'
+        >
+          공개
+        </Toggle>
+        <Toggle
+          isOn={!isOn}
+          onToggle={handelToggle}
+          size='large'
+        >
+          비공개
+        </Toggle>
+      </S.TagBox>
       <SearchBar />
       <Dropdown />
     </S.ToolBarWrapper>

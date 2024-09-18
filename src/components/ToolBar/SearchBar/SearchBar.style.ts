@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import searchIcon from '../../../assets/searchIcon.svg';
 
-export const SearchBarWrapper = styled.div`
-  width: 100%;
-`;
 export const Input = styled.input`
   background-color: ${({ theme }) => theme.colors.G_04};
   ${({ theme }) => theme.fonts.font_08}; 

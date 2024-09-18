@@ -11,8 +11,6 @@ const Main = () => {
         </BtnSmall>
       </S.ButtonField>
       <ToolBar />
-
-      시작 페이지입니다
     </S.MainWrapper>
   );
 }
