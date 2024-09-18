@@ -21,11 +21,11 @@ const GlobalStyles = createGlobalStyle`
   }
 
   :root {
-    --vh: 100%;
+    --vh: 100vh;
   }
 
   html, body{
-  overflow-x :  hidden;
+  overflow: hidden;
   }
 
   #root, body, html {
