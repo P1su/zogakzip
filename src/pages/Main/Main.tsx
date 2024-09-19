@@ -1,4 +1,5 @@
 import BtnSmall from '../../components/button/SmallButton/BtnSmall';
+import PublicGroupItem from '../../components/Group/PublicGroup/PublicGroupItem/PublicGroupItem';
 import ToolBar from '../../components/ToolBar/ToolBar';
 import * as S from './Main.style';
 
@@ -11,6 +12,7 @@ const Main = () => {
         </BtnSmall>
       </S.ButtonField>
       <ToolBar />
+      <PublicGroupItem/>
     </S.MainWrapper>
   );
 }
