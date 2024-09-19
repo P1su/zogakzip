@@ -4,7 +4,7 @@ export const PublicGroupItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 37.5rem;
-  height: 56.1rem;
+  height: 55.1rem;
   padding: 2rem 2rem 0 2rem;
   border: 1px solid ${({ theme }) => theme.colors.G_03};
   border-radius: 12px;
