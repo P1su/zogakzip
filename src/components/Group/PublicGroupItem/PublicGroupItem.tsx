@@ -29,12 +29,17 @@ const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
       isImage: true,
     },
   ];
+
+  const today = new Date();
+  const itemDate = new Date(itemData.createdAt);
+  const diffDate = Math.floor((today.getTime() - itemDate.getTime()) / (1000 * 60 * 60 * 24));
+
   return(
     <S.PublicGroupItemWrapper>
       <S.GroupImage src={itemData.imageUrl}/>
       <S.DateBox>
         <S.TextSpan>
-          {itemData.createdAt}
+          {`D+ ${diffDate}`}
         </S.TextSpan>
         <S.TextSpan>|</S.TextSpan>
         <S.TextSpan>공개</S.TextSpan>
