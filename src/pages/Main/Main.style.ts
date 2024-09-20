@@ -6,13 +6,6 @@ ${({ theme: { mixin } }) => mixin.flexCenter({})};
   padding-top: 2rem;
   gap: 6rem;
 `;
-export const ButtonField = styled.div`
-  ${({ theme: { mixin } }) => mixin.flexBox({ justify: 'flex-end' })};
-  width: 100%;
-  position: absolute;
-  top: 2.7rem;
-  padding-right: 18rem;
-`;
 export const Text = styled.p`
   ${({ theme }) => theme.fonts.font_06};
 `;

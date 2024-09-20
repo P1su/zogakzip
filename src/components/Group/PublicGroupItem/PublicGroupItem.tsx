@@ -38,6 +38,7 @@ const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
   return(
     <S.PublicGroupItemWrapper>
       <S.GroupImage src={itemData.imageUrl}/>
+      
       <S.DateBox>
         <S.TextSpan>
           {`D+ ${diffDate}`}
@@ -45,6 +46,7 @@ const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
         <S.TextSpan>|</S.TextSpan>
         <S.TextSpan>공개</S.TextSpan>
       </S.DateBox>
+
       <S.InfoBox>
         <S.TitleSpan>
           {itemData.name}
@@ -53,6 +55,7 @@ const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
           {itemData.introduction}
         </S.ContentSpan>
       </S.InfoBox>
+      
       <S.StatusBox>
         {statusItems.map(item => (
           <S.StatusItem key={item.name}>
