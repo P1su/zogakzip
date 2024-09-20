@@ -1,10 +1,11 @@
 import { groupMockData } from '../../mock/groupMockData';
 import * as S from './GroupList.style';
-import PublicGroupList from './PublicGroup/PublicGroupList/PublicGroupList';
 import nonGroup from '../../assets/img/nonGroup.png';
 import BtnLarge from '../button/LargeButton/BtnLarge';
+import PublicGroupItem from './PublicGroupItem/PublicGroupItem';
 
 const GroupList = () => {
+  //api연결
   const data = groupMockData;
 
   return(
@@ -12,7 +13,16 @@ const GroupList = () => {
       {
         data.totalItemCount == 0 
           ?
-            <PublicGroupList />
+            <S.GroupBox>
+              {
+                data.data.map((item) => (
+                  <PublicGroupItem
+                    key={item.id}
+                    itemData={item}
+                  />
+                ))
+              }
+            </S.GroupBox>
           :
             <S.NonGroupBox>
               <S.NonGroupImage src={nonGroup} />

@@ -12,3 +12,10 @@ export const NonGroupBox = styled.div`
 `;
 export const NonGroupImage = styled.img`
 `;
+export const GroupBox = styled.div`
+  display: grid;
+  width: 156rem;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+`;

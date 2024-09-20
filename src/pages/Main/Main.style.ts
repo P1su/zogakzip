@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const MainWrapper = styled.div`
 ${({ theme: { mixin } }) => mixin.flexCenter({})};
   width: 100%;
-  height: 100vh;
+  padding-top: 2rem;
   gap: 6rem;
 `;
 export const ButtonField = styled.div`

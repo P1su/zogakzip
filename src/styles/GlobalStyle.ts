@@ -25,7 +25,6 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html, body{
-  overflow: hidden;
   }
 
   #root, body, html {
