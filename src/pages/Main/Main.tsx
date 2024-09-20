@@ -1,9 +1,12 @@
 import BtnSmall from '../../components/button/SmallButton/BtnSmall';
-import PublicGroupItem from '../../components/Group/PublicGroup/PublicGroupItem/PublicGroupItem';
 import ToolBar from '../../components/ToolBar/ToolBar';
+import { groupMockData } from '../../mock/groupMockData';
 import * as S from './Main.style';
+import GroupList from '../../components/Group/GroupList';
 
 const Main = () => {
+  const data = groupMockData;
+  console.log(data.totalItemCount);
   return(
     <S.MainWrapper>
       <S.ButtonField>
@@ -12,7 +15,7 @@ const Main = () => {
         </BtnSmall>
       </S.ButtonField>
       <ToolBar />
-      <PublicGroupItem/>
+      <GroupList />
     </S.MainWrapper>
   );
 }

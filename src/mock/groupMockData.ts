@@ -1,7 +1,7 @@
-export const groupMockDate = {
+export const groupMockData = {
 	"currentPage": 1,
 	"totalPages": 5,
-	"totalItemCount": 50,
+	"totalItemCount": 0,
 	"data": [
 		{
 			"id": 1,
