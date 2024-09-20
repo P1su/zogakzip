@@ -6,7 +6,7 @@ export const groupMockData = {
 		{
 			"id": 1,
 			"name": "string",
-			"imageUrl": "string",
+			"imageUrl": '/public/mockImage.png',
 			"isPublic": true,
 			"likeCount": 0,
 			"badgeCount": 0,

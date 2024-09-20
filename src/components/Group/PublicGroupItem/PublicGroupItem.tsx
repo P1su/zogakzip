@@ -9,7 +9,7 @@ const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
   
   return(
     <S.PublicGroupItemWrapper>
-      <S.GroupImage />
+      <S.GroupImage src={itemData.imageUrl}/>
       <S.DateBox>
         <S.TextSpan>
           {itemData.createdAt}
