@@ -29,9 +29,15 @@ export const StatusBox = styled.div`
   gap: 4rem;
 `;
 export const StatusItem = styled.div`
-  ${({ theme : { mixin } }) => mixin.flexBox({ direction: 'column' })};
+  ${({ theme : { mixin } }) => mixin.flexBox({ direction: 'column', justify: 'flex-start' })};
   width: 100%;
   height: 3.8rem;
+  gap: 0.5rem;
+`;
+export const StatusTextBox = styled.div`
+  ${({ theme : { mixin } }) => mixin.flexBox({ direction: 'row', justify: 'flex-start', align: 'center' })};
+  width: 100%;
+  height: 2.2rem;
   gap: 0.5rem;
 `;
 export const TextSpan = styled.span`

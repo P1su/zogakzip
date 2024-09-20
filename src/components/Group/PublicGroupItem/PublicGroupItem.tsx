@@ -1,4 +1,5 @@
 import * as S from './PublicGroupItem.style';
+import { IcFlowerIcon } from '../../../assets/svg';
 import GroupType from '../../../types/GroupType';
 
 interface PublicGroupItemProps {
@@ -56,8 +57,10 @@ const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
         {statusItems.map(item => (
           <S.StatusItem key={item.name}>
             <S.SubTitleSpan>{item.name}</S.SubTitleSpan>
-            {/*item.isImage && <IcFlowerIcon />*/}
-            <S.TextSpan>{item.count}</S.TextSpan>
+            <S.StatusTextBox>
+              {item.isImage && <IcFlowerIcon />}
+              <S.TextSpan>{item.count}</S.TextSpan>
+            </S.StatusTextBox>
           </S.StatusItem>
         ))}
       </S.StatusBox>
