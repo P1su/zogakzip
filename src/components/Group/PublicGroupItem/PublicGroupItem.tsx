@@ -5,8 +5,30 @@ interface PublicGroupItemProps {
   itemData: GroupType;
 }
 
+interface StatusType {
+  name: string;
+  count: number;
+  isImage: boolean;
+}
+
 const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
-  
+  const statusItems: StatusType[] = [
+    {
+      name: '획득 배지',
+      count: itemData.badgeCount,
+      isImage: false,
+    },
+    {
+      name: '추억',
+      count: itemData.postCount,
+      isImage: false,
+    },
+    {
+      name: '그룹 공감',
+      count: itemData.likeCount,
+      isImage: true,
+    },
+  ];
   return(
     <S.PublicGroupItemWrapper>
       <S.GroupImage src={itemData.imageUrl}/>
@@ -26,18 +48,13 @@ const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
         </S.ContentSpan>
       </S.InfoBox>
       <S.StatusBox>
-        <S.StatusItem>
-          <S.SubTitleSpan>획득 배지</S.SubTitleSpan>
-          <S.TextSpan>{itemData.badgeCount}</S.TextSpan>
-        </S.StatusItem>
-        <S.StatusItem>
-          <S.SubTitleSpan>추억</S.SubTitleSpan>
-          <S.TextSpan>{itemData.postCount}</S.TextSpan>
-        </S.StatusItem>
-        <S.StatusItem>
-          <S.SubTitleSpan>그룹 공감</S.SubTitleSpan>
-          <S.TextSpan>{itemData.likeCount}</S.TextSpan>
-        </S.StatusItem>
+        {statusItems.map(item => (
+          <S.StatusItem key={item.name}>
+            <S.SubTitleSpan>{item.name}</S.SubTitleSpan>
+            {/*item.isImage && <IcFlowerIcon />*/}
+            <S.TextSpan>{item.count}</S.TextSpan>
+          </S.StatusItem>
+        ))}
       </S.StatusBox>
     </S.PublicGroupItemWrapper>
   );
