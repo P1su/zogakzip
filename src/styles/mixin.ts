@@ -7,7 +7,7 @@ interface MixinProps {
 }
 
 const mixin = {
-  flexBox: ({ direction = 'row', align, justify }: MixinProps) => css`
+  flexBox: ({ direction, align, justify }: MixinProps) => css`
     display: flex;
     flex-direction: ${direction};
     align-items: ${align};
