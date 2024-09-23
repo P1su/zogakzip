@@ -1,4 +1,5 @@
 import BtnLarge from '../../components/button/LargeButton/BtnLarge';
+import Toggle from '../../components/Toggle/Toggle';
 import * as S from './CreateGroup.style';
 import { ChangeEvent, useState } from 'react';
 
@@ -30,6 +31,13 @@ const CreateGroup = () => {
     //api 연결
     alert('api 연결합니다');
   };
+  const onToggle = () => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      isPublic: !prevValues.isPublic,
+    }));
+  };
+
   console.log(values)
   return(
     <S.CreateGroupWrapper>
@@ -48,7 +56,7 @@ const CreateGroup = () => {
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>대표 이미지</S.InputTitleText>
-          <S.FileBox>
+          <S.FlexBox>
             <S.FileTextBox
               name='imageUrl'
               value={values.imageUrl}
@@ -66,7 +74,7 @@ const CreateGroup = () => {
               id='file'
               onChange={onChange}
             />
-          </S.FileBox>
+          </S.FlexBox>
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>그룹 소개</S.InputTitleText>
@@ -79,9 +87,17 @@ const CreateGroup = () => {
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>그룹 공개 선택</S.InputTitleText>
-          <S.GroupTextInput 
-              type='text'
+          <S.FlexBox>
+            { values.isPublic ?
+                <S.ContentText>공개</S.ContentText>
+              :
+                <S.ContentText>비공개</S.ContentText>
+            }
+            <Toggle 
+              isActive={values.isPublic}
+              onToggle={onToggle}  
             />
+          </S.FlexBox>
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>비밀번호 설정</S.InputTitleText>

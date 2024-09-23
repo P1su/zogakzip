@@ -42,7 +42,7 @@ export const Label = styled.label`
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 6px;
 `;
-export const FileBox = styled.div`
+export const FlexBox = styled.div`
   ${({ theme: { mixin } }) => mixin.flexBox({})};
   width: 100%;
   gap: 1rem;
@@ -60,4 +60,10 @@ export const PageTitleText = styled.span`
 `;
 export const InputTitleText = styled.span`
   ${({ theme }) => theme.fonts.font_05};
+`;
+export const ContentText = styled.span`
+  ${({ theme: { mixin } }) => mixin. flexBox({ align: 'center' })};
+  ${({ theme }) => theme.fonts.font_08};
+  width: 5rem;
+  padding-top: 2rem;
 `;
