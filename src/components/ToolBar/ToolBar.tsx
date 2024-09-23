@@ -1,6 +1,6 @@
 import * as S from './ToolBar.style';
 import { useState } from 'react';
-import Toggle from './Toggle/Toggle';
+import Tab from './Tab/Tab';
 import SearchBar from './SearchBar/SearchBar';
 import Dropdown from './Dropdown/Dropdown';
 
@@ -13,20 +13,20 @@ const ToolBar = () => {
   return(
     <S.ToolBarWrapper>
       <S.TagBox>
-        <Toggle
+        <Tab
           isOn={isOn}
-          onToggle={handelToggle}
+          onTab={handelToggle}
           size='small'
         >
           공개
-        </Toggle>
-        <Toggle
+        </Tab>
+        <Tab
           isOn={!isOn}
-          onToggle={handelToggle}
+          onTab={handelToggle}
           size='large'
         >
           비공개
-        </Toggle>
+        </Tab>
       </S.TagBox>
       <SearchBar />
       <Dropdown />
