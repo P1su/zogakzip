@@ -1,6 +1,6 @@
 import BtnLarge from '../../components/button/LargeButton/BtnLarge';
 import * as S from './CreateGroup.style';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 interface GroupCreateType {
   name: string;
@@ -19,12 +19,18 @@ const CreateGroup = () => {
     isPublic: true,
     password: '',
   });
-
+  
+  const onChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value
+    });
+  };
   const handleForm = () => {
     //api 연결
     alert('api 연결합니다');
   };
-
+  console.log(values)
   return(
     <S.CreateGroupWrapper>
       <S.PageTitleText>그룹 만들기</S.PageTitleText>
@@ -33,37 +39,44 @@ const CreateGroup = () => {
           <S.InputTitleText>그룹명</S.InputTitleText>
           <S.GroupTextInput 
             type='text'
+            name='name'
             value={values.name}
+            onChange={onChange}
+            placeholder='그룹명을 입력해 주세요'
+            height='4rem'
           />
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>대표 이미지</S.InputTitleText>
           <S.GroupTextInput 
             type='file'
-            value={values.name}
           />
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>그룹 소개</S.InputTitleText>
-          <S.GroupTextInput 
-              type='text'
-              value={values.name}
+          <S.TextArea
+              name='introduction'
+              value={values.introduction}
+              onChange={onChange}
+              placeholder='그룹을 소개해주세요'
             />
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>그룹 공개 선택</S.InputTitleText>
           <S.GroupTextInput 
               type='text'
-              value={values.name}
             />
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>비밀번호 설정</S.InputTitleText>
           <S.GroupTextInput 
               type='text'
-              value={values.name}
+              name='password'
+              value={values.password}
+              onChange={onChange}
             />
         </S.InputBox>
+
         <BtnLarge onClick={() => handleForm()}>만들기</BtnLarge>
       </S.GroupForm>
     </S.CreateGroupWrapper>

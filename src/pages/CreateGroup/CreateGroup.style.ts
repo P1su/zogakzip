@@ -1,5 +1,14 @@
-import styled from 'styled-components';
+import { styled, css } from 'styled-components';
 
+const BaseInputStyle = css`
+  ${({ theme }) => theme.fonts.font_08};
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.colors.G_03};
+  border-radius: 6px;
+  &:focus{
+    border: 1px solid ${({ theme }) => theme.colors.black};
+  }
+`;
 export const CreateGroupWrapper = styled.div`
   ${({ theme: { mixin } }) => mixin.flexCenter({})};
   width: 100%;
@@ -15,7 +24,15 @@ export const InputBox = styled.div`
   gap: 1rem;
 `;
 export const GroupTextInput = styled.input`
-  width: 100%;
+  ${BaseInputStyle}
+  height: 4rem;
+  padding: 0 2rem 0 2rem;
+`;
+export const TextArea = styled.textarea`
+  ${BaseInputStyle}
+  height: 12rem;
+  padding: 1.4rem 2rem 0 2rem;
+  resize: none;
 `;
 export const PageTitleText = styled.span`
   ${({ theme }) => theme.fonts.title};
