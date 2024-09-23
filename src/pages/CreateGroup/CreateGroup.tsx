@@ -48,9 +48,25 @@ const CreateGroup = () => {
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>대표 이미지</S.InputTitleText>
-          <S.GroupTextInput 
-            type='file'
-          />
+          <S.FileBox>
+            <S.FileTextBox
+              name='imageUrl'
+              value={values.imageUrl}
+              placeholder='사진을 첨부하세요'
+              readOnly
+            />
+            <S.Label
+              htmlFor='file'
+            >
+              파일 선택
+            </S.Label>
+            <S.FileInput 
+              type='file' 
+              name='imageUrl' 
+              id='file'
+              onChange={onChange}
+            />
+          </S.FileBox>
         </S.InputBox>
         <S.InputBox>
           <S.InputTitleText>그룹 소개</S.InputTitleText>
