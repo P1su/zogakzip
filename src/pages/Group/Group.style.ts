@@ -5,6 +5,9 @@ export const GroupWrapper = styled.div`
   width: 100%;
   height: 100vh;
 `;
+export const MemoryBox = styled.div`
+  width: 100%;
+`;
 export const MemoryHeader = styled.div`
   ${({ theme : { mixin }}) => mixin.flexBox({justify: 'center' })};
   width: 100%;

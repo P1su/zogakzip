@@ -6,7 +6,7 @@ export const PageHeaderWrapper = styled.div`
   height: 10rem;
 `;
 export const IconField = styled.div`
-  position: absolute;
+  position: relative;
 `;
 export const ButtonField = styled.div`
   padding-left: 135rem;
