@@ -3,7 +3,7 @@ import mockImage from '../../../public/mockImage.png';
 
 const GroupInfo = () => {
   //api 연결
-  const mockData = {
+  /*const mockData = {
     "id": 123,
     "name": "string",
     "imageUrl": "string",
@@ -13,7 +13,7 @@ const GroupInfo = () => {
     "postCount": 0,
     "createdAt": "2024-02-22T07:47:49.803Z",
     "introduction": "string"
-  };
+  };*/
 
   return(
     <S.GroupInfoWrapper>
