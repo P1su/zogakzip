@@ -3,7 +3,7 @@ import * as S from './CreateMemory.style';
 const CreateMemory = () => {
   return(
     <S.CreateMemoryWrapper>
-      추억 생성 페이지
+      <S.TitleText>추억 올리기</S.TitleText>
     </S.CreateMemoryWrapper>
   );
 };
