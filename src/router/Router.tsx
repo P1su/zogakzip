@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout';
 import CreateGroup from '../pages/CreateGroup/CreateGroup';
 import Group from '../pages/Group/Group';
 import CreateMemory from '../pages/CreateMemory/CreateMemory';
+import Memory from '../pages/Memory/Memory';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         path: '/create-memory',
         element: <CreateMemory />,
       },
+      {
+        path: '/group/:groupId/memory/:postId',
+        element: <Memory />,
+      }
     ],
   },
 ]);
