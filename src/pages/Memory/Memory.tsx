@@ -3,6 +3,7 @@ import * as S from './Memory.style';
 import MemoryHeader from '../../components/Memory/MemoryHeader/MemoryHeader';
 import mockImage from '../../../public/mockImage.png';
 import BtnLarge from '../../components/button/LargeButton/BtnLarge';
+import Reply from '../../components/Reply/Reply';
 
 const Memory = () => {
   const { groupId, postId } = useParams();
@@ -35,6 +36,7 @@ const Memory = () => {
       <S.MemoryImage src={mockImage}/>
       <S.MemoryContent>{mockData.content}</S.MemoryContent>
       <BtnLarge onClick={handleReply}>댓글 등록하기</BtnLarge>
+      <Reply />
     </S.MemoryWrapper>
   ); 
 };
