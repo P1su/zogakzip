@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const MemoryHeaderWrapper = styled.div`
   ${({ theme: { mixin } }) => mixin.flexBox({ direction: 'column' })};
   width: 156rem;
-  height: 27.1rem;
   gap: 2rem;
 `;
 export const InfoHeader = styled.div`
