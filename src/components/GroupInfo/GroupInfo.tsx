@@ -1,8 +1,22 @@
 import * as S from './GroupInfo.style';
 import mockImage from '../../../public/mockImage.png';
+import { instance } from '../../apis/client';
+import { useLocation } from 'react-router-dom';
 
 const GroupInfo = () => {
   //api 연결
+  const location = useLocation();
+  const groupId = location.state.groupId;
+  const fetchGroupInfo = async () => {
+    const response = await instance.get('/groups', {
+      params: {
+        groupId: groupId,
+      },
+    });
+    console.log(response);
+  };
+
+  fetchGroupInfo();
   /*const mockData = {
     "id": 123,
     "name": "string",
