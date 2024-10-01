@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+import { instance } from '../../apis/client';
 import BtnLarge from '../../components/button/LargeButton/BtnLarge';
 import Toggle from '../../components/Toggle/Toggle';
 import * as S from './CreateGroup.style';
@@ -12,7 +14,7 @@ interface GroupCreateType {
 }
 
 const CreateGroup = () => {
-
+  const navigate = useNavigate();
   const [values, setValues] = useState<GroupCreateType>({
     name: '',
     imageUrl: '',
@@ -27,10 +29,23 @@ const CreateGroup = () => {
       [e.target.name]: e.target.value
     });
   };
+
+  const postData = async () =>{
+    try{
+      const response  = await instance.post('/groups',values);
+      console.log(response);
+    }
+    catch(error){
+      console.log(error);
+    }
+  };
+
   const handleForm = () => {
     //api 연결
-    alert('api 연결합니다');
+    postData();
+    navigate('/');
   };
+
   const onToggle = () => {
     setValues((prevValues) => ({
       ...prevValues,
@@ -38,7 +53,6 @@ const CreateGroup = () => {
     }));
   };
 
-  console.log(values)
   return(
     <S.CreateGroupWrapper>
       <S.PageTitleText>그룹 만들기</S.PageTitleText>
