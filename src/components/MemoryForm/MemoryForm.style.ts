@@ -10,12 +10,16 @@ const BaseInputStyle = css`
   }
 `;
 export const MemoryFormWrapper = styled.div`
-  width: 96rem;
+  ${({ theme: { mixin } }) => mixin.flexCenter({})};
+  gap: 5rem;
+`;
+export const LayerBox = styled.div`
   ${({ theme: { mixin } }) => mixin.flexBox({ justify: 'center' })};
+  width: 96rem;
   gap: 10rem;
 `;
 export const FormBox = styled.div`
-${({ theme: { mixin } }) => mixin.flexCenter({})};
+  ${({ theme: { mixin } }) => mixin.flexCenter({})};
   width: 100%;
   gap: 4rem;
 `;

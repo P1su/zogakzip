@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import * as S from './MemoryForm.style';
 import Toggle from '../Toggle/Toggle';
+import { instance } from '../../apis/client';
+import BtnLarge from '../button/LargeButton/BtnLarge';
 
 interface CreateMemoryType {
   nickname: string;
@@ -15,7 +17,11 @@ interface CreateMemoryType {
   isPublic: boolean;
 }
 
-const MemoryForm = () => {
+interface MemoryFormProps {
+  groupId: number;
+}
+
+const MemoryForm = ({ groupId }: MemoryFormProps) => {
 
   const [values, setValues] = useState<CreateMemoryType>({
     nickname: '',
@@ -29,6 +35,20 @@ const MemoryForm = () => {
     moment: '',
     isPublic: true,
   });
+
+  const postMemory = async () => {
+    try{
+      const response = await instance.post('/groups/posts/',values, {
+        params:{
+          groupId: groupId,
+        },
+      });
+      console.log(response);
+    }
+    catch (error){
+      console.log(error);
+    }
+  }
 
   const onChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setValues({
@@ -46,103 +66,106 @@ const MemoryForm = () => {
   
   return(
     <S.MemoryFormWrapper>
-      <S.FormBox>
-        <S.InputBox>
-          <S.InputTitleText>닉네임</S.InputTitleText>
-          <S.TextInput 
-            name='nickname'
-            value={values.nickname}
-            onChange={onChange}
-          />
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>제목</S.InputTitleText>
-          <S.TextInput 
-            name='title'
-            value={values.title}
-            onChange={onChange}
-          />
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>이미지</S.InputTitleText>
-          <S.FlexBox>
-            <S.FileTextBox
-              name='imageUrl'
-              placeholder='사진을 첨부하세요'
-              readOnly
-            />
-            <S.Label
-              htmlFor='file'
-            >
-              파일 선택
-            </S.Label>
-            <S.FileInput 
-              type='file' 
-              name='imageUrl' 
-              id='file'
+      <S.LayerBox>
+        <S.FormBox>
+          <S.InputBox>
+            <S.InputTitleText>닉네임</S.InputTitleText>
+            <S.TextInput 
+              name='nickname'
+              value={values.nickname}
               onChange={onChange}
             />
-          </S.FlexBox>
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>본문</S.InputTitleText>
-            <S.TextArea
-              name='content'
-              value={values.content}
-              placeholder='그룹을 소개해주세요'
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputTitleText>제목</S.InputTitleText>
+            <S.TextInput 
+              name='title'
+              value={values.title}
               onChange={onChange}
             />
-        </S.InputBox>
-      </S.FormBox>
-
-      <S.FormBox>
-        <S.InputBox>
-          <S.InputTitleText>태그</S.InputTitleText>
-          <S.TextInput 
-            name='tags'
-            value={values.tags}
-            onChange={onChange}
-          />
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>장소</S.InputTitleText>
-          <S.TextInput 
-            name='location'
-            value={values.location}
-            onChange={onChange}
-          />
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>추억의 순간</S.InputTitleText>
-          <S.TextInput 
-            name='moment'
-            value={values.moment}
-            onChange={onChange}
-          />
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>추억 공개 선택</S.InputTitleText>
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputTitleText>이미지</S.InputTitleText>
             <S.FlexBox>
-            { values.isPublic ?
-                  <S.ContentText>공개</S.ContentText>
-                :
-                  <S.ContentText>비공개</S.ContentText>
-              }
-              <Toggle 
-                isActive={values.isPublic}
-                onToggle={onToggle}  
+              <S.FileTextBox
+                name='imageUrl'
+                placeholder='사진을 첨부하세요'
+                readOnly
               />
-          </S.FlexBox>
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>비밀번호 생성</S.InputTitleText>
-          <S.TextInput 
-            name='postPassword'
-            value={values.postPassword}
-            onChange={onChange}
-          />
-        </S.InputBox>
-      </S.FormBox>
+              <S.Label
+                htmlFor='file'
+              >
+                파일 선택
+              </S.Label>
+              <S.FileInput 
+                type='file' 
+                name='imageUrl' 
+                id='file'
+                onChange={onChange}
+              />
+            </S.FlexBox>
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputTitleText>본문</S.InputTitleText>
+              <S.TextArea
+                name='content'
+                value={values.content}
+                placeholder='그룹을 소개해주세요'
+                onChange={onChange}
+              />
+          </S.InputBox>
+        </S.FormBox>
+
+        <S.FormBox>
+          <S.InputBox>
+            <S.InputTitleText>태그</S.InputTitleText>
+            <S.TextInput 
+              name='tags'
+              value={values.tags}
+              onChange={onChange}
+            />
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputTitleText>장소</S.InputTitleText>
+            <S.TextInput 
+              name='location'
+              value={values.location}
+              onChange={onChange}
+            />
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputTitleText>추억의 순간</S.InputTitleText>
+            <S.TextInput 
+              name='moment'
+              value={values.moment}
+              onChange={onChange}
+            />
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputTitleText>추억 공개 선택</S.InputTitleText>
+              <S.FlexBox>
+              { values.isPublic ?
+                    <S.ContentText>공개</S.ContentText>
+                  :
+                    <S.ContentText>비공개</S.ContentText>
+                }
+                <Toggle 
+                  isActive={values.isPublic}
+                  onToggle={onToggle}  
+                />
+            </S.FlexBox>
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputTitleText>비밀번호 생성</S.InputTitleText>
+            <S.TextInput 
+              name='postPassword'
+              value={values.postPassword}
+              onChange={onChange}
+            />
+          </S.InputBox>
+        </S.FormBox>
+      </S.LayerBox>
+      <BtnLarge onClick={postMemory}>추억 생성하기</BtnLarge>
     </S.MemoryFormWrapper>
   );
 };
