@@ -19,7 +19,7 @@ const PublicMemory = ({ itemData }: PublicMemoryProps) => {
         <S.TitleSpan>{itemData.title}</S.TitleSpan>
         <S.TagBox>
           {itemData.tags.map(tag =>(
-            <S.TextSpan>{`#${tag}`}</S.TextSpan>
+            <S.TextSpan key={tag}>{`#${tag}`}</S.TextSpan>
           ))} 
         </S.TagBox>
       </S.InfoBox>

@@ -12,7 +12,7 @@ const Group = () => {
   console.log(groupId);
 
   const handleNavigate = () => {
-    navigate('/create-memory', {state: {groupId: groupId}});
+    navigate('/create-memory', {state: {id: groupId}});
   };
 
   return(
@@ -25,7 +25,7 @@ const Group = () => {
           </S.ButtonField>
         </S.MemoryHeader>
         <ToolBar />
-        <MemoryList />
+        <MemoryList groupId={Number(groupId)}/>
     </S.GroupWrapper>
   );
 };

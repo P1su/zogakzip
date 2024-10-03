@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 const CreateMemory = () => {
   const location = useLocation();
-  const groupId = location.state.groupId;
+  const groupId = location.state.id;
   console.log(groupId);
 
   return(
