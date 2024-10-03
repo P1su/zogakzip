@@ -5,6 +5,7 @@ import * as S from './MemoryList.style';
 import { instance } from '../../../apis/client';
 import { useEffect, useState } from 'react';
 import MemoryType from '../../../types/MemoryType';
+import { useNavigate } from 'react-router-dom';
 
 interface MemoryListProps {
   groupId: number;
@@ -13,6 +14,7 @@ interface MemoryListProps {
 const MemoryList = ({ groupId }: MemoryListProps) => {
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
+  const navigate = useNavigate();
   
   const fetchMemory = async () => {
     try{
@@ -37,7 +39,7 @@ const MemoryList = ({ groupId }: MemoryListProps) => {
   }
 
   const handleNavigate = () => {
-    alert('추억 만들기 페이지 이동');
+    navigate('/create-memory');
   };
 
   useEffect(() => {
