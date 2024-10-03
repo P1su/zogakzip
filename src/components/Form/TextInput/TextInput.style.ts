@@ -4,6 +4,7 @@ export const TextInputWrapper = styled.div`
   ${({ theme: { mixin } }) => mixin.flexBox({ direction: 'column', justify: 'flex-start'})};
   width: 40rem;
   gap: 1rem;
+  padding-top: 4rem;
 `;
 export const TitleText = styled.div`
   ${({ theme }) => theme.fonts.font_05};

@@ -1,8 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 import * as S from './MemoryForm.style';
-import Toggle from '../Toggle/Toggle';
 import { instance } from '../../apis/client';
 import BtnLarge from '../button/LargeButton/BtnLarge';
+import TextInput from '../Form/TextInput/TextInput';
+import ImageInput from '../Form/ImageInput/ImageInput';
+import TextArea from '../Form/TextArea/TextArea';
+import PublicToggle from '../Form/PublicToggle/PublicToggle';
 
 interface CreateMemoryType {
   nickname: string;
@@ -22,7 +25,7 @@ interface MemoryFormProps {
 }
 
 const MemoryForm = ({ groupId }: MemoryFormProps) => {
-
+  const [tag, setTag] = useState('');
   const [values, setValues] = useState<CreateMemoryType>({
     nickname: '',
     title: '',
@@ -50,119 +53,116 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
     }
   }
 
+  const handleKeydown = () => {
+    setValues(prevValues => ({
+      ...prevValues,
+      tags: [...prevValues.tags, tag], // 기존 태그 배열에 새로운 태그 추가
+    }));
+  };
+
+  const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === 'Enter'){
+      handleKeydown();
+      setTag('');
+    }
+  };
+
   const onChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setValues({
       ...values,
       [e.target.name]: e.target.value
     });
   };
-
+  const onChangeTag = (e: ChangeEvent<HTMLInputElement>) => {
+    setTag(e.target.value);
+  }
   const onToggle = () => {
     setValues((prevValues) => ({
       ...prevValues,
       isPublic: !prevValues.isPublic,
     }));
   };
-  
+  console.log(values)
   return(
     <S.MemoryFormWrapper>
       <S.LayerBox>
         <S.FormBox>
-          <S.InputBox>
-            <S.InputTitleText>닉네임</S.InputTitleText>
-            <S.TextInput 
-              name='nickname'
-              value={values.nickname}
-              onChange={onChange}
-            />
-          </S.InputBox>
-          <S.InputBox>
-            <S.InputTitleText>제목</S.InputTitleText>
-            <S.TextInput 
-              name='title'
-              value={values.title}
-              onChange={onChange}
-            />
-          </S.InputBox>
-          <S.InputBox>
-            <S.InputTitleText>이미지</S.InputTitleText>
-            <S.FlexBox>
-              <S.FileTextBox
-                name='imageUrl'
-                placeholder='사진을 첨부하세요'
-                readOnly
-              />
-              <S.Label
-                htmlFor='file'
-              >
-                파일 선택
-              </S.Label>
-              <S.FileInput 
-                type='file' 
-                name='imageUrl' 
-                id='file'
-                onChange={onChange}
-              />
-            </S.FlexBox>
-          </S.InputBox>
-          <S.InputBox>
-            <S.InputTitleText>본문</S.InputTitleText>
-              <S.TextArea
-                name='content'
-                value={values.content}
-                placeholder='그룹을 소개해주세요'
-                onChange={onChange}
-              />
-          </S.InputBox>
+          <TextInput
+            name='nickname'
+            value={values.nickname}
+            onChange={onChange}
+            placeholder='닉네임을 입력해주세요'
+          >
+            닉네임
+          </TextInput>
+          <TextInput
+            name='title'
+            value={values.title}
+            onChange={onChange}
+            placeholder='제목을 입력해주세요'
+          >
+            제목
+          </TextInput>
+          <ImageInput
+            name='imageUrl'
+            value={values.imageUrl}
+            onChange={onChange}
+          />
+          <TextArea
+            name='content'
+            value={values.content}
+            placeholder='본문 내용을 입력해주세요'
+            onChange={onChange}
+          >
+            본문
+          </TextArea>
         </S.FormBox>
 
         <S.FormBox>
-          <S.InputBox>
-            <S.InputTitleText>태그</S.InputTitleText>
-            <S.TextInput 
-              name='tags'
-              value={values.tags}
-              onChange={onChange}
-            />
-          </S.InputBox>
-          <S.InputBox>
-            <S.InputTitleText>장소</S.InputTitleText>
-            <S.TextInput 
-              name='location'
-              value={values.location}
-              onChange={onChange}
-            />
-          </S.InputBox>
-          <S.InputBox>
-            <S.InputTitleText>추억의 순간</S.InputTitleText>
-            <S.TextInput 
-              name='moment'
-              value={values.moment}
-              onChange={onChange}
-            />
-          </S.InputBox>
-          <S.InputBox>
-            <S.InputTitleText>추억 공개 선택</S.InputTitleText>
-              <S.FlexBox>
-              { values.isPublic ?
-                    <S.ContentText>공개</S.ContentText>
-                  :
-                    <S.ContentText>비공개</S.ContentText>
-                }
-                <Toggle 
-                  isActive={values.isPublic}
-                  onToggle={onToggle}  
-                />
-            </S.FlexBox>
-          </S.InputBox>
-          <S.InputBox>
-            <S.InputTitleText>비밀번호 생성</S.InputTitleText>
-            <S.TextInput 
-              name='postPassword'
-              value={values.postPassword}
-              onChange={onChange}
-            />
-          </S.InputBox>
+          <TextInput
+            name='tag'
+            value={tag}
+            onChange={onChangeTag}
+            onKeyDown={onEnter}
+            placeholder='태그를 입력해주세요'
+          >
+            태그
+          </TextInput>
+          <S.TagBox>
+            {values.tags.map((tag) => (
+              <span key={tag}>{`#${tag}`}</span>
+            ))}
+          </S.TagBox>
+          <TextInput
+            name='location'
+            value={values.location}
+            onChange={onChange}
+            placeholder='장소를 입력해주세요'
+          >
+            장소
+          </TextInput>
+          <TextInput
+            name='moment'
+            value={values.moment}
+            onChange={onChange}
+            placeholder='추억의 순간을 입력해주세요'
+          >
+            추억의 순간
+          </TextInput>
+          <PublicToggle
+            value={values.isPublic}
+            onToggle={onToggle}
+          >
+            추억 공개 설정
+          </PublicToggle>
+          <TextInput
+            name='postPassword'
+            value={values.postPassword}
+            onChange={onChange}
+            placeholder='추억의 비밀번호를 생성해주세요'
+          >
+            비밀번호 생성
+          </TextInput>
         </S.FormBox>
       </S.LayerBox>
       <BtnLarge onClick={postMemory}>추억 생성하기</BtnLarge>
