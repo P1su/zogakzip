@@ -6,6 +6,8 @@ import TextInput from '../Form/TextInput/TextInput';
 import ImageInput from '../Form/ImageInput/ImageInput';
 import TextArea from '../Form/TextArea/TextArea';
 import PublicToggle from '../Form/PublicToggle/PublicToggle';
+import useModal from '../../hooks/useModal';
+import Modal from '../Modal/Modal';
 
 interface CreateMemoryType {
   nickname: string;
@@ -25,6 +27,7 @@ interface MemoryFormProps {
 }
 
 const MemoryForm = ({ groupId }: MemoryFormProps) => {
+  const [isOpen, openModal, closeModal] = useModal();
   const [tag, setTag] = useState('');
   const [values, setValues] = useState<CreateMemoryType>({
     nickname: '',
@@ -41,11 +44,8 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
 
   const postMemory = async () => {
     try{
-      const response = await instance.post('/groups/posts/',values, {
-        params:{
-          groupId: groupId,
-        },
-      });
+      const response = await instance.post(`/groups/posts/${groupId}`,values
+      );
       console.log(response);
     }
     catch (error){
@@ -73,18 +73,39 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
       [e.target.name]: e.target.value
     });
   };
+
   const onChangeTag = (e: ChangeEvent<HTMLInputElement>) => {
     setTag(e.target.value);
-  }
+  };
+
   const onToggle = () => {
     setValues((prevValues) => ({
       ...prevValues,
       isPublic: !prevValues.isPublic,
     }));
   };
+
+
   console.log(values)
   return(
     <S.MemoryFormWrapper>
+      {isOpen &&
+        <Modal
+          onClose={closeModal}
+          title='그룹 삭제'
+          BtnText='제출하기'
+          onClick={postMemory}
+        >
+          <TextInput
+            name='groupPassword'
+            value={values.groupPassword}
+            onChange={onChange}
+            placeholder='그룹 비밀번호를 입력해주세요.'
+          >
+            삭제 권한 인증
+          </TextInput>
+        </Modal>
+      }
       <S.LayerBox>
         <S.FormBox>
           <TextInput
@@ -165,7 +186,7 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
           </TextInput>
         </S.FormBox>
       </S.LayerBox>
-      <BtnLarge onClick={postMemory}>추억 생성하기</BtnLarge>
+      <BtnLarge onClick={openModal}>추억 생성하기</BtnLarge>
     </S.MemoryFormWrapper>
   );
 };
