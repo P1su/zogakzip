@@ -1,5 +1,4 @@
 import * as S from './GroupInfo.style';
-import mockImage from '../../../public/mockImage.png';
 import { instance } from '../../apis/client';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useModal from '../../hooks/useModal';
@@ -7,7 +6,16 @@ import Modal from '../Modal/Modal';
 import TextInput from '../Form/TextInput/TextInput';
 import { ChangeEvent, useState } from 'react';
 
-const GroupInfo = () => {
+interface GroupInfoProps {
+  name: string;
+  imageUrl: string;
+  badgeCount: number;
+  likeCount: number;
+  introduction: string;
+  onOpen: () => void;
+}
+
+const GroupInfo = ({ name, imageUrl, badgeCount, likeCount, introduction, onOpen }: GroupInfoProps) => {
   const [isOpen, openModal, closeModal] = useModal();
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -76,23 +84,23 @@ const GroupInfo = () => {
           </TextInput>
         </Modal>
       }
-      <S.GroupImg src={mockImage} />
+      <S.GroupImg src={imageUrl} />
       <S.InfoBox>
         <S.InfoHeader>
           <S.HeaderFlexBox>
             <S.HeaderText>날짜 | 공개</S.HeaderText>
           </S.HeaderFlexBox>
           <S.HeaderFlexBox>
-            <S.HeaderText>그룹 수정하기</S.HeaderText>
+            <S.HeaderText onClick={() => onOpen()}>그룹 수정하기</S.HeaderText>
             <S.HeaderText onClick={() => handleModal()}>그룹 삭제하기</S.HeaderText>
           </S.HeaderFlexBox>
         </S.InfoHeader>
         <S.TitleBox>
-          <S.TitleText>제목</S.TitleText>
-          <S.SubTitleText>부제목</S.SubTitleText>
-          <S.SubTitleText>부제목</S.SubTitleText>
+          <S.TitleText>{name}</S.TitleText>
+          <S.SubTitleText>{badgeCount}</S.SubTitleText>
+          <S.SubTitleText>{likeCount}</S.SubTitleText>
         </S.TitleBox>
-        <S.IntroText>그리고 내용</S.IntroText>
+        <S.IntroText>{introduction}</S.IntroText>
       </S.InfoBox>
     </S.GroupInfoWrapper>
   );
