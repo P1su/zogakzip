@@ -56,6 +56,7 @@ const MemoryList = ({ groupId }: MemoryListProps) => {
                 data.map((item: MemoryType) => (
                   <PublicMemory
                     key={item.id}
+                    groupId={groupId}
                     itemData={item}
                   />
                 ))

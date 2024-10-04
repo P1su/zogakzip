@@ -4,10 +4,22 @@ import MemoryHeader from '../../components/Memory/MemoryHeader/MemoryHeader';
 import mockImage from '../../../public/mockImage.png';
 import BtnLarge from '../../components/button/LargeButton/BtnLarge';
 import Reply from '../../components/Reply/Reply';
+import { instance } from '../../apis/client';
+import { useEffect } from 'react';
 
 const Memory = () => {
   const { groupId, postId } = useParams();
   console.log(groupId, postId);
+
+  const fetchMemory = async () => {
+    try{
+      const response = await instance.get(`/posts/${postId}`);
+      console.log(response);
+    }
+    catch(error){
+      console.log(error);
+    }
+  };
 
   const mockData = {
     "id": 123,
@@ -28,6 +40,10 @@ const Memory = () => {
   const handleReply = () => {
     alert('미구현 기능입니다.');
   };
+
+  useEffect(() => {
+    fetchMemory();
+  },[])
 
   return(
     <S.MemoryWrapper>

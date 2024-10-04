@@ -1,14 +1,21 @@
 import * as S from './PublicMemory.style';
 import MemoryType from '../../../types/MemoryType';
+import { useNavigate } from 'react-router-dom';
 
 interface PublicMemoryProps {
+  groupId: number;
   itemData: MemoryType;
 }
 
+const PublicMemory = ({ groupId, itemData }: PublicMemoryProps) => {
+  const navigate = useNavigate();
 
-const PublicMemory = ({ itemData }: PublicMemoryProps) => {
+  const handleNavigate = () => {
+    navigate(`/group/${groupId}/memory/${itemData.id}`);
+  };
+  
   return(
-    <S.PublicMemoryWrapper>
+    <S.PublicMemoryWrapper onClick={() => handleNavigate()}>
       <S.GroupImage />
 
       <S.NicknameBox>
