@@ -16,7 +16,6 @@ export const CreateGroupWrapper = styled.div`
 export const GroupForm = styled.form`
   ${({ theme: { mixin } }) => mixin.flexCenter({})};
   width: 40rem;
-  gap: 4rem;
 `;
 export const InputBox = styled.div`
   ${({ theme: { mixin } }) => mixin.flexBox({ direction: 'column', justify: 'flex-start'})};

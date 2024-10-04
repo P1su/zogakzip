@@ -1,6 +1,7 @@
 import * as S from './PublicGroupItem.style';
 import { IcFlowerIcon } from '../../../assets/svg';
 import GroupType from '../../../types/GroupType';
+import { useNavigate } from 'react-router-dom';
 
 interface PublicGroupItemProps {
   itemData: GroupType;
@@ -13,6 +14,8 @@ interface StatusType {
 }
 
 const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
+  const navigate = useNavigate();
+
   const statusItems: StatusType[] = [
     {
       name: '획득 배지',
@@ -35,8 +38,12 @@ const PublicGroupItem = ({ itemData }: PublicGroupItemProps) => {
   const itemDate = new Date(itemData.createdAt);
   const diffDate = Math.floor((today.getTime() - itemDate.getTime()) / (1000 * 60 * 60 * 24));
 
+  const handleNavigate = () => {
+    navigate(`/group/${itemData.id}`, {state: {groupId: itemData.id, groupItem: itemData}});
+  };
+
   return(
-    <S.PublicGroupItemWrapper>
+    <S.PublicGroupItemWrapper onClick={handleNavigate}>
       <S.GroupImage src={itemData.imageUrl}/>
       
       <S.DateBox>

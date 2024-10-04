@@ -9,6 +9,7 @@ export const PublicGroupItemWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.G_03};
   border-radius: 12px;
   gap: 2rem;
+  cursor: pointer;
 `;
 export const GroupImage = styled.img`
   width: 33.5rem;
