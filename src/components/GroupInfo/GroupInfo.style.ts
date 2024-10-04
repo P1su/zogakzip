@@ -41,4 +41,5 @@ export const IntroText = styled.p`
 `;
 export const HeaderText = styled.span`
   ${({ theme }) => theme.fonts.font_08};
+  cursor: pointer;
 `;

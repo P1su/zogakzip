@@ -1,26 +1,53 @@
-import { memoryMockData } from '../../../mock/meomoryMockData';
 import BtnLarge from '../../button/LargeButton/BtnLarge';
 import PublicMemory from '../PublicMemory/PublicMemory';
 import nonMemory from '../../../assets/img/nonMemory.png';
 import * as S from './MemoryList.style';
+import { instance } from '../../../apis/client';
+import { useEffect, useState } from 'react';
+import MemoryType from '../../../types/MemoryType';
+import { useNavigate } from 'react-router-dom';
 
-const MemoryList = () => {
-  const data = memoryMockData;
-  
+interface MemoryListProps {
+  groupId: number;
+}
+
+const MemoryList = ({ groupId }: MemoryListProps) => {
+  const [data, setData] = useState([]);
+  const [count, setCount] = useState(0);
+  const navigate = useNavigate();
+
+
   const handleNavigate = () => {
-    alert('추억 만들기 페이지 이동');
+    navigate('/create-memory');
   };
+
+  useEffect(() => {
+    const fetchMemory = async () => {
+      try{
+        const response = await instance.get(`/groups/posts/${groupId}`);
+        setData(response.data.data);
+        setCount(response.data.totalItemCount);
+        console.log(response);
+      }
+      catch(error){
+        console.log(error);
+      }
+    };
+
+    fetchMemory();
+  }, [groupId]);
 
   return(
     <S.MemoryListWrapper>
       {
-        data.totalItemCount != 0 
+        count != 0 
           ?
             <S.MemoryBox>
               {
-                data.data.map((item) => (
+                data.map((item: MemoryType) => (
                   <PublicMemory
                     key={item.id}
+                    groupId={groupId}
                     itemData={item}
                   />
                 ))

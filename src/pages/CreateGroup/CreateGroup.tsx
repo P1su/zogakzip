@@ -1,7 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+import { instance } from '../../apis/client';
 import BtnLarge from '../../components/button/LargeButton/BtnLarge';
-import Toggle from '../../components/Toggle/Toggle';
 import * as S from './CreateGroup.style';
 import { ChangeEvent, useState } from 'react';
+import TextInput from '../../components/Form/TextInput/TextInput';
+import TextArea from '../../components/Form/TextArea/TextArea';
+import ImageInput from '../../components/Form/ImageInput/ImageInput';
+import PublicToggle from '../../components/Form/PublicToggle/PublicToggle';
 
 interface GroupCreateType {
   name: string;
@@ -12,7 +17,7 @@ interface GroupCreateType {
 }
 
 const CreateGroup = () => {
-
+  const navigate = useNavigate();
   const [values, setValues] = useState<GroupCreateType>({
     name: '',
     imageUrl: '',
@@ -20,17 +25,54 @@ const CreateGroup = () => {
     isPublic: true,
     password: '',
   });
-  
+  const [file, setFile] = useState<File | null>(null);  
   const onChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setValues({
       ...values,
       [e.target.name]: e.target.value
     });
   };
+
+  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
+    if(file){
+      reader.readAsDataURL(file);
+
+      reader.onloadend = () => { 
+        setValues({
+        ...values,
+          [e.target.name]: reader.result
+        });
+      };
+      setFile(file);
+    }
+  };
+
+  const postData = async () =>{
+    const formData = new FormData();
+    if(file){
+      formData.append('imageUrl', file);
+    }
+    formData.append('name', values.name);
+    formData.append('introduction', values.introduction);
+    formData.append('isPublic', String(values.isPublic));
+    formData.append('password', values.password);
+    try{
+      const response  = await instance.post('/groups',formData);
+      console.log(response);
+    }
+    catch(error){
+      console.log(error);
+    }
+  };
+
   const handleForm = () => {
     //api 연결
-    alert('api 연결합니다');
+    postData();
+    navigate('/');
   };
+
   const onToggle = () => {
     setValues((prevValues) => ({
       ...prevValues,
@@ -38,76 +80,45 @@ const CreateGroup = () => {
     }));
   };
 
-  console.log(values)
   return(
     <S.CreateGroupWrapper>
       <S.PageTitleText>그룹 만들기</S.PageTitleText>
       <S.GroupForm>
-        <S.InputBox>
-          <S.InputTitleText>그룹명</S.InputTitleText>
-          <S.GroupTextInput 
-            type='text'
-            name='name'
-            value={values.name}
-            onChange={onChange}
-            placeholder='그룹명을 입력해 주세요'
-            height='4rem'
-          />
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>대표 이미지</S.InputTitleText>
-          <S.FlexBox>
-            <S.FileTextBox
-              name='imageUrl'
-              value={values.imageUrl}
-              placeholder='사진을 첨부하세요'
-              readOnly
-            />
-            <S.Label
-              htmlFor='file'
-            >
-              파일 선택
-            </S.Label>
-            <S.FileInput 
-              type='file' 
-              name='imageUrl' 
-              id='file'
-              onChange={onChange}
-            />
-          </S.FlexBox>
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>그룹 소개</S.InputTitleText>
-          <S.TextArea
-              name='introduction'
-              value={values.introduction}
-              onChange={onChange}
-              placeholder='그룹을 소개해주세요'
-            />
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>그룹 공개 선택</S.InputTitleText>
-          <S.FlexBox>
-            { values.isPublic ?
-                <S.ContentText>공개</S.ContentText>
-              :
-                <S.ContentText>비공개</S.ContentText>
-            }
-            <Toggle 
-              isActive={values.isPublic}
-              onToggle={onToggle}  
-            />
-          </S.FlexBox>
-        </S.InputBox>
-        <S.InputBox>
-          <S.InputTitleText>비밀번호 설정</S.InputTitleText>
-          <S.GroupTextInput 
-              type='text'
-              name='password'
-              value={values.password}
-              onChange={onChange}
-            />
-        </S.InputBox>
+        <TextInput
+          name='name'
+          value={values.name}
+          onChange={onChange}
+          placeholder='그룹명을 입력해 주세요'
+        >
+          그룹명
+        </TextInput>
+        <ImageInput
+          name='imageUrl'
+          value={values.imageUrl}
+          onChange={handleImage}
+        />
+        <TextArea
+          name='introduction'
+          value={values.introduction}
+          onChange={onChange}
+          placeholder='그룹을 소개해주세요'
+        >
+          그룹 소개
+        </TextArea>
+        <PublicToggle 
+          value={values.isPublic}
+          onToggle={onToggle}
+        >
+          추억 공개 선택
+        </PublicToggle>
+        <TextInput
+          name='password'
+          value={values.password}
+          onChange={onChange}
+          placeholder='비밀번호를 입력해 주세요'
+        >
+          비밀번호 설정
+        </TextInput>
 
         <BtnLarge onClick={() => handleForm()}>만들기</BtnLarge>
       </S.GroupForm>
