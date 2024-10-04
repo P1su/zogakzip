@@ -7,25 +7,13 @@ import { instance } from '../../apis/client';
 import { useEffect, useState } from 'react';
 import GroupType from './../../types/GroupType';
 
-const GroupList = () => {
+interface GroupListProps{
+  isPublic: boolean;
+}
+
+const GroupList = ({ isPublic }: GroupListProps) => {
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
-
-  const fetchData = async () => {
-    const response = await instance.get(`/groups`, {
-      params:{
-        pages: 1,
-        pageSize: 10,
-        sortBy: 'latest',
-        keyword: '',
-        isPublic: true
-      },
-    });
-
-    console.log(response.data);
-    setData(response.data.data);
-    setCount(response.data.totalItemCount);
-  };
   
   //const data = groupMockData;
   const navigate = useNavigate();
@@ -35,8 +23,24 @@ const GroupList = () => {
   };
   
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await instance.get(`/groups`, {
+        params:{
+          pages: 1,
+          pageSize: 10,
+          sortBy: 'latest',
+          keyword: '',
+          isPublic: isPublic
+        },
+      });
+  
+      console.log(response.data);
+      setData(response.data.data);
+      setCount(response.data.totalItemCount);
+    };
+    
     fetchData();
-  }, []);
+  }, [isPublic]);
 
   return(
     <S.GroupListWrapper>
