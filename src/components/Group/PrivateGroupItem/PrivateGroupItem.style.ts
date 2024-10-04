@@ -8,6 +8,7 @@ export const PrivateGroupItemWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.G_03};
   padding: 2rem 2rem 2rem 2rem;
   gap: 2rem;
+  cursor: pointer;
 `;
 export const DateBox = styled.div`
   ${({ theme : { mixin } }) => mixin.flexBox({})};
