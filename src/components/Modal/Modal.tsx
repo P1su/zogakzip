@@ -21,7 +21,9 @@ const Modal = ({ onClose, children, title, BtnText, onClick }: ModalProps) => {
         </S.DeleteIconWrapper>
         <S.ModalTitle>{title}</S.ModalTitle>
         {children}
-        <BtnLarge onClick = {() => onClick()}>{BtnText}</BtnLarge>
+        <S.ButtonField>
+          <BtnLarge onClick = {() => onClick()}>{BtnText}</BtnLarge>
+        </S.ButtonField>
       </S.ModalWrapper>
     </>
   );

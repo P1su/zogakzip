@@ -29,3 +29,7 @@ export const DeleteIconWrapper = styled.div`
   width: 100%;
   cursor: pointer;
 `;
+export const ButtonField = styled.div`
+  padding-top: 5.5rem;
+  padding-bottom: 2rem;
+`;

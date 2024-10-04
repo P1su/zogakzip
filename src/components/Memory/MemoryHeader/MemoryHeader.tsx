@@ -43,7 +43,7 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
       {isOpen &&
         <Modal
           onClose={closeModal}
-          title='그룹 삭제'
+          title='추억 삭제'
           BtnText='삭제하기'
           onClick={handleDelete}
         >
@@ -51,7 +51,7 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
             name='password'
             value={password}
             onChange={onChange}
-            placeholder='그룹 비밀번호를 입력해주세요.'
+            placeholder='추억 비밀번호를 입력해주세요.'
           >
             삭제 권한 인증
           </TextInput>
