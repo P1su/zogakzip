@@ -62,7 +62,7 @@ const fonts = {
   font-family: 'SpoqaHanSansNeo';
   font-size: 1.6rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: -3%;
   `,  
   font_06: css`

@@ -5,6 +5,7 @@ import * as S from './MemoryHeader.style';
 import { ChangeEvent, useState } from 'react';
 import { instance } from '../../../apis/client';
 import MemoryType from '../../../types/MemoryType';
+import { IcComment, IcFlowerIcon } from '../../../assets/svg';
 
 interface MemoryHeaderProps {
   memoryData: MemoryType;
@@ -59,7 +60,7 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
       <S.InfoHeader>
         <S.HeaderFlexBox>
           <S.NicknameSpan>{memoryData.nickname}</S.NicknameSpan>
-          <S.PublicSpan>공개</S.PublicSpan>
+          <S.PublicSpan>{`${memoryData.isPublic ? '공개' : '비공개'}`}</S.PublicSpan>
         </S.HeaderFlexBox>
         <S.HeaderFlexBox>
           <S.MemoryEditSpan onClick={() => onOpen()}>
@@ -89,8 +90,14 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
           </S.MomentSpan>
         </S.FooterFlexBox>
         <S.FooterFlexBox>
-          <S.CountSpan>{memoryData.likeCount}</S.CountSpan>
-          <S.CountSpan>{memoryData.commentCount}</S.CountSpan>
+          <S.SpanFlexBox>
+            <IcFlowerIcon />
+            <S.CountSpan>{memoryData.likeCount}</S.CountSpan>
+          </S.SpanFlexBox>
+          <S.SpanFlexBox>
+            <IcComment />
+            <S.CountSpan>{memoryData.commentCount}</S.CountSpan>
+          </S.SpanFlexBox>
         </S.FooterFlexBox>
       </S.InfoFooter>
     </S.MemoryHeaderWrapper>
