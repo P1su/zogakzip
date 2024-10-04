@@ -15,26 +15,27 @@ const MemoryList = ({ groupId }: MemoryListProps) => {
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  
-  const fetchMemory = async () => {
-    try{
-      const response = await instance.get(`/groups/posts/${groupId}`);
-      setData(response.data.data);
-      setCount(response.data.totalItemCount);
-      console.log(response);
-    }
-    catch(error){
-      console.log(error);
-    }
-  }
+
 
   const handleNavigate = () => {
     navigate('/create-memory');
   };
 
   useEffect(() => {
+    const fetchMemory = async () => {
+      try{
+        const response = await instance.get(`/groups/posts/${groupId}`);
+        setData(response.data.data);
+        setCount(response.data.totalItemCount);
+        console.log(response);
+      }
+      catch(error){
+        console.log(error);
+      }
+    };
+
     fetchMemory();
-  }, []);
+  }, [groupId]);
 
   return(
     <S.MemoryListWrapper>

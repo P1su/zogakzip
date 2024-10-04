@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import * as S from './Memory.style';
 import MemoryHeader from '../../components/Memory/MemoryHeader/MemoryHeader';
-import mockImage from '../../../public/mockImage.png';
 import BtnLarge from '../../components/button/LargeButton/BtnLarge';
 import Reply from '../../components/Reply/Reply';
 import { instance } from '../../apis/client';
@@ -23,6 +22,11 @@ interface CreateMemoryType {
   location: string;
   moment: string;
   isPublic: boolean;
+  id?: number;
+  likeCount?: number;
+  commentCount?: number;
+  createdAt?: string;
+  groupPassword?: string;
 }
 
 const Memory = () => {
@@ -42,26 +46,25 @@ const Memory = () => {
   }
 );
 
-  const { groupId, postId } = useParams();
-
-  const fetchMemory = async () => {
-    try{
-      const response = await instance.get(`/posts/${postId}`);
-      console.log(response);
-      setData(response.data);
-    }
-    catch(error){
-      console.log(error);
-    }
-  };
+  const { postId } = useParams();
 
   const handleReply = () => {
     alert('미구현 기능입니다.');
   };
 
   useEffect(() => {
+    const fetchMemory = async () => {
+      try {
+        const response = await instance.get(`/posts/${postId}`);
+        console.log(response);
+        setData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
     fetchMemory();
-  },[])
+  }, [postId]); // Add 'fetchMemory' to the dependency array
 
   const handleKeydown = () => {
     setData(prevValues => ({

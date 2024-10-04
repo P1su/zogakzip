@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './Group.style';
 import BtnSmall from '../../components/button/SmallButton/BtnSmall';
 import ToolBar from '../../components/ToolBar/ToolBar';
@@ -19,13 +19,15 @@ interface GroupCreateType {
   introduction: string;
   isPublic: boolean;
   password: string;
+  badgeCount: number;
+  likeCount: number;
+
 }
 
 const Group = () => {
   const [isOpen, openModal, closeModal] = useModal();
   const navigate = useNavigate();
   const { groupId } = useParams();
-  const [file, setFile] = useState<File | null>(null);  
 
   const [values, setValues] = useState<GroupCreateType>({
     name: '',
@@ -33,14 +35,10 @@ const Group = () => {
     introduction: '',
     isPublic: true,
     password: '',
+    badgeCount: 0,
+    likeCount: 0,
   });
 
-  const fetchGroupInfo = async () => {
-    const response = await instance.get(`/groups/${groupId}`, {
-    });
-    console.log(response);
-    setValues(response.data);
-  };
 
   const handleNavigate = () => {
     navigate('/create-memory', {state: {id: groupId}});
@@ -63,7 +61,6 @@ const Group = () => {
           [e.target.name]: reader.result
         });
       };
-      setFile(file);
     }
   };
   
@@ -82,14 +79,6 @@ const Group = () => {
   };
 
   const putGroup = async () => {
-    const formData = new FormData();
-    if(file){
-      formData.append('imageUrl', file);
-    }
-    formData.append('name', values.name);
-    formData.append('introduction', values.introduction);
-    formData.append('isPublic', String(values.isPublic));
-    formData.append('password', values.password);
 
     try{
       const response = await instance.put(`/groups/${groupId}/`, values);
@@ -102,8 +91,15 @@ const Group = () => {
   };
 
   useEffect(() => {
+    const fetchGroupInfo = async () => {
+      const response = await instance.get(`/groups/${groupId}`, {
+      });
+      console.log(response);
+      setValues(response.data);
+    };
+
     fetchGroupInfo();
-  }, []);
+  }, [groupId]);
 
   return(
     <S.GroupWrapper>
