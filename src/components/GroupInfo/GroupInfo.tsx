@@ -109,8 +109,8 @@ const GroupInfo = ({ name, imageUrl, badgeCount, likeCount, introduction, onOpen
         </S.InfoHeader>
         <S.TitleBox>
           <S.TitleText>{name}</S.TitleText>
-          <S.SubTitleText>{badgeCount}</S.SubTitleText>
-          <S.SubTitleText>{likeCount}</S.SubTitleText>
+          <S.SubTitleText>{`추억 ${data.postCount}`}</S.SubTitleText>
+          <S.SubTitleText>{`그룹 공감 ${data.likeCount}`}</S.SubTitleText>
         </S.TitleBox>
         <S.IntroText>{introduction}</S.IntroText>
       </S.InfoBox>

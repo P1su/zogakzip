@@ -31,12 +31,12 @@ export const HeaderFlexBox2 = styled.div`
   width: 22rem;
 `;
 export const TitleBox = styled.div`
-  ${({ theme: { mixin }}) => mixin.flexBox({})};
+  ${({ theme: { mixin }}) => mixin.flexBox({ align: 'center' })};
   gap: 3rem;
 `;
 export const TitleText = styled.span`
   ${({ theme }) => theme.fonts.big_title};
-  width: 94.4rem;
+  
 `;
 export const SubTitleText = styled.span`
   ${({ theme }) => theme.fonts.font_02};
