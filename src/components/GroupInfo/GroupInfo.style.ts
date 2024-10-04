@@ -28,7 +28,7 @@ export const HeaderFlexBox = styled.div`
 `;
 export const HeaderFlexBox2 = styled.div`
   ${({ theme: { mixin }}) => mixin.flexBox({justify: 'space-between' })};
-  width: 22rem;
+  width: 25rem;
 `;
 export const TitleBox = styled.div`
   ${({ theme: { mixin }}) => mixin.flexBox({ align: 'center' })};

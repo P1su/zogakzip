@@ -148,11 +148,6 @@ const Group = () => {
         </Modal>
       }
         <GroupInfo 
-          name={values.name}
-          imageUrl={values.imageUrl}
-          badgeCount={values.badgeCount}
-          likeCount={values.likeCount}
-          introduction={values.introduction}
           onOpen={handleOpen}
         />
         <S.MemoryHeader>

@@ -7,15 +7,11 @@ import TextInput from '../Form/TextInput/TextInput';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 interface GroupInfoProps {
-  name: string;
-  imageUrl: string;
-  badgeCount: number;
-  likeCount: number;
-  introduction: string;
+
   onOpen: () => void;
 }
 
-const GroupInfo = ({ name, imageUrl, badgeCount, likeCount, introduction, onOpen }: GroupInfoProps) => {
+const GroupInfo = ({ onOpen }: GroupInfoProps) => {
   const [isOpen, openModal, closeModal] = useModal();
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -94,7 +90,7 @@ const GroupInfo = ({ name, imageUrl, badgeCount, likeCount, introduction, onOpen
           </TextInput>
         </Modal>
       }
-      <S.GroupImg src={imageUrl} />
+      <S.GroupImg src={data.imageUrl} />
       <S.InfoBox>
         <S.InfoHeader>
           <S.HeaderFlexBox>
@@ -103,16 +99,16 @@ const GroupInfo = ({ name, imageUrl, badgeCount, likeCount, introduction, onOpen
             <S.HeaderBlurText>{`${data.isPublic ? '공개' : '비공개'}`}</S.HeaderBlurText>
           </S.HeaderFlexBox>
           <S.HeaderFlexBox2>
-            <S.HeaderText onClick={() => onOpen()}>그룹 수정하기</S.HeaderText>
-            <S.HeaderText onClick={() => handleModal()}>그룹 삭제하기</S.HeaderText>
+            <S.HeaderText onClick={() => onOpen()}>그룹 정보 수정하기</S.HeaderText>
+            <S.HeaderBlurText onClick={() => handleModal()}>그룹 삭제하기</S.HeaderBlurText>
           </S.HeaderFlexBox2>
         </S.InfoHeader>
         <S.TitleBox>
-          <S.TitleText>{name}</S.TitleText>
+          <S.TitleText>{data.name}</S.TitleText>
           <S.SubTitleText>{`추억 ${data.postCount}`}</S.SubTitleText>
           <S.SubTitleText>{`그룹 공감 ${data.likeCount}`}</S.SubTitleText>
         </S.TitleBox>
-        <S.IntroText>{introduction}</S.IntroText>
+        <S.IntroText>{data.introduction}</S.IntroText>
       </S.InfoBox>
     </S.GroupInfoWrapper>
   );
