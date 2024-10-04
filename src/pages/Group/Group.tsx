@@ -11,7 +11,7 @@ import TextInput from '../../components/Form/TextInput/TextInput';
 import ImageInput from '../../components/Form/ImageInput/ImageInput';
 import PublicToggle from '../../components/Form/PublicToggle/PublicToggle';
 import { instance } from '../../apis/client';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 
 interface GroupCreateType {
   name: string;
@@ -24,18 +24,23 @@ interface GroupCreateType {
 const Group = () => {
   const [isOpen, openModal, closeModal] = useModal();
   const navigate = useNavigate();
-  const location = useLocation();
-  const groupItem = location.state.groupItem;
   const { groupId } = useParams();
   const [file, setFile] = useState<File | null>(null);  
 
   const [values, setValues] = useState<GroupCreateType>({
-    name: groupItem.name,
-    imageUrl: groupItem.imageUrl,
-    introduction: groupItem.introduction,
-    isPublic: groupItem.isPublic,
+    name: '',
+    imageUrl: '',
+    introduction: '',
+    isPublic: true,
     password: '',
   });
+
+  const fetchGroupInfo = async () => {
+    const response = await instance.get(`/groups/${groupId}`, {
+    });
+    console.log(response);
+    setValues(response.data);
+  };
 
   const handleNavigate = () => {
     navigate('/create-memory', {state: {id: groupId}});
@@ -87,7 +92,7 @@ const Group = () => {
     formData.append('password', values.password);
 
     try{
-      const response = await instance.put(`/groups/${groupId}/`, formData);
+      const response = await instance.put(`/groups/${groupId}/`, values);
       console.log(response);
       closeModal();
     }
@@ -95,6 +100,10 @@ const Group = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    fetchGroupInfo();
+  }, []);
 
   return(
     <S.GroupWrapper>
@@ -143,11 +152,11 @@ const Group = () => {
         </Modal>
       }
       <GroupInfo 
-        name={groupItem.name}
-        imageUrl={groupItem.imageUrl}
-        badgeCount={groupItem.badgeCount}
-        likeCount={groupItem.likeCount}
-        introduction={groupItem.introduction}
+        name={values.name}
+        imageUrl={values.imageUrl}
+        badgeCount={values.badgeCount}
+        likeCount={values.likeCount}
+        introduction={values.introduction}
         onOpen={handleOpen}
       />
         <S.MemoryHeader>
