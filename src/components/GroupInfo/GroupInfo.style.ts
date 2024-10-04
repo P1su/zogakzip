@@ -23,8 +23,12 @@ ${({ theme: { mixin }}) => mixin.flexBox({ justify : 'space-between' })};
   width: 100%;
 `;
 export const HeaderFlexBox = styled.div`
-  ${({ theme: { mixin }}) => mixin.flexBox({})};
-  gap: 4rem;
+  ${({ theme: { mixin }}) => mixin.flexBox({justify: 'space-between' })};
+  width: 11rem;
+`;
+export const HeaderFlexBox2 = styled.div`
+  ${({ theme: { mixin }}) => mixin.flexBox({justify: 'space-between' })};
+  width: 22rem;
 `;
 export const TitleBox = styled.div`
   ${({ theme: { mixin }}) => mixin.flexBox({})};
@@ -44,3 +48,8 @@ export const HeaderText = styled.span`
   ${({ theme }) => theme.fonts.font_08};
   cursor: pointer;
 `;
+export const HeaderBlurText = styled.span`
+  ${({ theme }) => theme.fonts.font_08};
+  color: ${({ theme }) => theme.colors.G_01};
+  cursor: pointer;
+`
