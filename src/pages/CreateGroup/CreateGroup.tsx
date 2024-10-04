@@ -25,7 +25,7 @@ const CreateGroup = () => {
     isPublic: true,
     password: '',
   });
-  
+  const [file, setFile] = useState<File | null>(null);  
   const onChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setValues({
       ...values,
@@ -38,17 +38,26 @@ const CreateGroup = () => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
-    reader.onloadend = () => {
+    reader.onloadend = () => { 
       setValues({
       ...values,
         [e.target.name]: reader.result
       });
     };
-  }
+    setFile(file);
+  };
 
   const postData = async () =>{
+    const formData = new FormData();
+    if(file){
+      formData.append('imageUrl', file);
+    }
+    formData.append('name', values.name);
+    formData.append('introduction', values.introduction);
+    formData.append('isPublic', String(values.isPublic));
+    formData.append('password', values.password);
     try{
-      const response  = await instance.post('/groups',values);
+      const response  = await instance.post('/groups',formData);
       console.log(response);
     }
     catch(error){
