@@ -8,7 +8,7 @@ export const MemoryWrapper = styled.div`
 `;
 export const HorizontalLine = styled.div`
   width: 156rem;
-  border-bottom: 1px solid  ${({ theme }) => theme.colors.G_01}; 
+  border-bottom: 1px solid  ${({ theme }) => theme.colors.G_03}; 
 `;
 export const MemoryImage = styled.img`
   width: 78rem;
@@ -29,4 +29,7 @@ export const TagBox = styled.div`
     ${({ theme }) => theme.fonts.font_08};
     color: ${({ theme }) => theme.colors.G_01};
   }  
+`;
+export const ButtonField = styled.div`
+  padding-top: 6rem;
 `;

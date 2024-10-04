@@ -236,7 +236,9 @@ const Memory = () => {
           <S.HorizontalLine />
           <S.MemoryImage src={data.imageUrl}/>
           <S.MemoryContent>{data.content}</S.MemoryContent>
-          <BtnLarge onClick={handleReply}>댓글 등록하기</BtnLarge>
+          <S.ButtonField>
+            <BtnLarge onClick={handleReply}>댓글 등록하기</BtnLarge>
+          </S.ButtonField>
           <Reply /> 
         </>
         : null 
