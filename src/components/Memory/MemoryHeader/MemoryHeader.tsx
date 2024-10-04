@@ -8,9 +8,10 @@ import MemoryType from '../../../types/MemoryType';
 
 interface MemoryHeaderProps {
   memoryData: MemoryType;
+  onOpen: () => void;
 }
 
-const MemoryHeader = ({ memoryData }: MemoryHeaderProps) => {
+const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
   const [isOpen, openModal, closeModal] = useModal();
   const [password, setPassword] = useState('');
 
@@ -61,7 +62,7 @@ const MemoryHeader = ({ memoryData }: MemoryHeaderProps) => {
           <S.PublicSpan>공개</S.PublicSpan>
         </S.HeaderFlexBox>
         <S.HeaderFlexBox>
-          <S.MemoryEditSpan>
+          <S.MemoryEditSpan onClick={() => onOpen()}>
             추억 수정하기
           </S.MemoryEditSpan>
           <S.MemoryEditSpan onClick={() => handleModal()}>

@@ -11,6 +11,8 @@ interface MemoryType {
   commentCount: number;
   createdAt: string; 
   content: string;
+  postPassword: string;
+  groupPassword: string;
 }
 
 export default MemoryType;

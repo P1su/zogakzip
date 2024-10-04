@@ -18,3 +18,15 @@ export const MemoryContent = styled.p`
   ${({ theme }) => theme.fonts.font_01};
   width: 78rem;
 `;
+export const FormBox = styled.div`
+  width: 100%;
+`;
+export const TagBox = styled.div`
+  ${({ theme: { mixin } }) => mixin.flexBox({})};
+  width: 40rem;
+  gap: 1rem;
+  span {
+    ${({ theme }) => theme.fonts.font_08};
+    color: ${({ theme }) => theme.colors.G_01};
+  }  
+`;

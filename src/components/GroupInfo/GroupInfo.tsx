@@ -24,10 +24,7 @@ const GroupInfo = ({ name, imageUrl, badgeCount, likeCount, introduction, onOpen
   const groupId = location.state.groupId;
 
   const fetchGroupInfo = async () => {
-    const response = await instance.get('/groups', {
-      params: {
-        groupId: groupId,
-      },
+    const response = await instance.get(`/groups/${groupId}`, {
     });
     console.log(response);
   };

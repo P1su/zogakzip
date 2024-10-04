@@ -12,7 +12,7 @@ const GroupList = () => {
   const [count, setCount] = useState(0);
 
   const fetchData = async () => {
-    const response = await instance.get('/groups', {
+    const response = await instance.get(`/groups`, {
       params:{
         pages: 1,
         pageSize: 10,
