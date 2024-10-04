@@ -7,7 +7,6 @@ export const PageHeaderWrapper = styled.div`
   margin-left: 48%;
 `;
 export const IconField = styled.div`
-  position: relative;
   cursor: pointer;
 `;
 export const ButtonField = styled.div`

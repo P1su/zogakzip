@@ -147,14 +147,14 @@ const Group = () => {
           </TextInput>
         </Modal>
       }
-      <GroupInfo 
-        name={values.name}
-        imageUrl={values.imageUrl}
-        badgeCount={values.badgeCount}
-        likeCount={values.likeCount}
-        introduction={values.introduction}
-        onOpen={handleOpen}
-      />
+        <GroupInfo 
+          name={values.name}
+          imageUrl={values.imageUrl}
+          badgeCount={values.badgeCount}
+          likeCount={values.likeCount}
+          introduction={values.introduction}
+          onOpen={handleOpen}
+        />
         <S.MemoryHeader>
           <S.MemoryListTitle>추억 목록</S.MemoryListTitle>
           <S.ButtonField>

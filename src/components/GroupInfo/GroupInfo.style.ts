@@ -5,7 +5,7 @@ export const GroupInfoWrapper = styled.div`
   width: 156rem;
   height: 27.3rem;
   gap: 6rem;
-  margin-bottom: 25rem;
+  margin-bottom: 26rem;
 `;
 export const GroupImg = styled.img`
   width: 26.2rem;
@@ -15,6 +15,7 @@ export const InfoBox = styled.div`
 ${({ theme: { mixin }}) => mixin.flexBox({ direction: 'column' })};
   display: flex;
   width: 100%;
+  height: 27.3rem;
   gap: 2rem;
 `;
 export const InfoHeader = styled.div`
