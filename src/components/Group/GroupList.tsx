@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { instance } from '../../apis/client';
 import { useEffect, useState } from 'react';
 import GroupType from './../../types/GroupType';
+import PrivateGroupItem from './PrivateGroupItem/PrtivateGroupItem';
 
 interface GroupListProps{
   isPublic: boolean;
@@ -38,7 +39,7 @@ const GroupList = ({ isPublic }: GroupListProps) => {
       setData(response.data.data);
       setCount(response.data.totalItemCount);
     };
-    
+
     fetchData();
   }, [isPublic]);
 
@@ -50,10 +51,17 @@ const GroupList = ({ isPublic }: GroupListProps) => {
             <S.GroupBox>
               {
                 data.map((item: GroupType) => (
-                  <PublicGroupItem
-                    key={item.id}
-                    itemData={item}
-                  />
+                  item.isPublic 
+                    ?
+                      <PublicGroupItem
+                        key={item.id}
+                        itemData={item}
+                      />
+                    :
+                      <PrivateGroupItem
+                        key={item.id}
+                        itemData={item}
+                      />
                 ))
               }
             </S.GroupBox>
