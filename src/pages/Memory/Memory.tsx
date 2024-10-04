@@ -5,9 +5,11 @@ import mockImage from '../../../public/mockImage.png';
 import BtnLarge from '../../components/button/LargeButton/BtnLarge';
 import Reply from '../../components/Reply/Reply';
 import { instance } from '../../apis/client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import MemoryType from '../../types/MemoryType';
 
 const Memory = () => {
+  const [data, setData] = useState<MemoryType | undefined>(undefined);
   const { groupId, postId } = useParams();
   console.log(groupId, postId);
 
@@ -15,12 +17,13 @@ const Memory = () => {
     try{
       const response = await instance.get(`/posts/${postId}`);
       console.log(response);
+      setData(response.data);
     }
     catch(error){
       console.log(error);
     }
   };
-
+  console.log(data);
   const mockData = {
     "id": 123,
     "groupId": 123,
@@ -47,7 +50,12 @@ const Memory = () => {
 
   return(
     <S.MemoryWrapper>
-      <MemoryHeader />
+      {data?
+        <MemoryHeader 
+          memoryData={data}
+        /> 
+        : null 
+      }
       <S.HorizontalLine />
       <S.MemoryImage src={mockImage}/>
       <S.MemoryContent>{mockData.content}</S.MemoryContent>
