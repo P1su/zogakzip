@@ -33,6 +33,19 @@ const CreateGroup = () => {
     });
   };
 
+  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      setValues({
+      ...values,
+        [e.target.name]: reader.result
+      });
+    };
+  }
+
   const postData = async () =>{
     try{
       const response  = await instance.post('/groups',values);
@@ -71,7 +84,7 @@ const CreateGroup = () => {
         <ImageInput
           name='imageUrl'
           value={values.imageUrl}
-          onChange={onChange}
+          onChange={handleImage}
         />
         <TextArea
           name='introduction'
