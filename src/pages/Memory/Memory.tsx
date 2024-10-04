@@ -13,24 +13,11 @@ import TextArea from '../../components/Form/TextArea/TextArea';
 import ImageInput from '../../components/Form/ImageInput/ImageInput';
 import PublicToggle from '../../components/Form/PublicToggle/PublicToggle';
 
-interface TempType {
-  id: number;
-  nickname: string;
-  title: string;
-  content: string;
-  imageUrl: string;
-  tags: string[];
-  location: string;
-  moment: string;
-  isPublic: boolean;
-  postPassword: string;
-}
 interface CreateMemoryType {
   nickname: string;
   title: string;
   content: string;
   postPassword: string;
-  groupPassword: string;
   imageUrl: string;
   tags: string[];
   location: string;
@@ -39,22 +26,10 @@ interface CreateMemoryType {
 }
 
 const Memory = () => {
-  const [values, setValues] = useState<CreateMemoryType>({
-    nickname: '',
-    title: '',
-    content: '',
-    postPassword: '',
-    groupPassword: '',
-    imageUrl: '',
-    tags: [],
-    location: '',
-    moment: '',
-    isPublic: true,
-  });
+  const [file, setFile] = useState<File | null>(null); 
   const [isOpen, openModal, closeModal] = useModal();
   const [tag, setTag] = useState('');
-  const [data, setData] = useState<TempType>({    
-    id: 0,
+  const [data, setData] = useState<CreateMemoryType>({    
     nickname: '',
     title: '',
     content: '',
@@ -63,7 +38,8 @@ const Memory = () => {
     location: '',
     moment:'',
     isPublic: true,
-    postPassword: '',}
+    postPassword: '',
+  }
 );
 
   const { groupId, postId } = useParams();
@@ -79,16 +55,6 @@ const Memory = () => {
     }
   };
 
-  const putMemory  = async () => {
-    try{
-      const response = await instance.put(`/posts/${postId}`, values);
-      console.log(response);
-    }
-    catch(error){
-      console.log(error);
-    };
-  };
-
   const handleReply = () => {
     alert('미구현 기능입니다.');
   };
@@ -98,10 +64,48 @@ const Memory = () => {
   },[])
 
   const handleKeydown = () => {
-    setValues(prevValues => ({
+    setData(prevValues => ({
       ...prevValues,
       tags: [...prevValues.tags, tag], // 기존 태그 배열에 새로운 태그 추가
     }));
+  };
+  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
+    if(file){
+      reader.readAsDataURL(file);
+
+      reader.onloadend = () => { 
+        setData({
+        ...data,
+          [e.target.name]: reader.result
+        });
+      };
+      setFile(file);
+    }
+  };
+
+  const putMemory  = async () => {
+    const formData = new FormData();
+    if(file){
+      formData.append('imageUrl', file);
+    }
+    formData.append('nickname', data.nickname);
+    formData.append('title', data.title);
+    formData.append('content', data.content);
+    formData.append('postPassword', data.postPassword);
+    formData.append('tags', data.tags.join(' '));
+    formData.append('location', data.location);
+    formData.append('moment', data.moment);
+    formData.append('isPublic', data.isPublic? 'true' : 'false');
+
+    try{
+      const response = await instance.put(`/posts/${postId}`, data);
+      console.log(response);
+    }
+    catch(error){
+      console.log(error);
+    };
   };
 
   const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -112,8 +116,8 @@ const Memory = () => {
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
-    setValues({
-      ...values,
+    setData({
+      ...data,
       [e.target.name]: e.target.value
     });
   };
@@ -123,7 +127,7 @@ const Memory = () => {
   };
 
   const onToggle = () => {
-    setValues((prevValues) => ({
+    setData((prevValues) => ({
       ...prevValues,
       isPublic: !prevValues.isPublic,
     }));
@@ -143,7 +147,7 @@ const Memory = () => {
           <S.FormBox>
           <TextInput
             name='nickname'
-            value={values.nickname}
+            value={data.nickname}
             onChange={onChange}
             placeholder='닉네임을 입력해주세요'
           >
@@ -151,7 +155,7 @@ const Memory = () => {
           </TextInput>
           <TextInput
             name='title'
-            value={values.title}
+            value={data.title}
             onChange={onChange}
             placeholder='제목을 입력해주세요'
           >
@@ -159,12 +163,12 @@ const Memory = () => {
           </TextInput>
           <ImageInput
             name='imageUrl'
-            value={values.imageUrl}
-            onChange={onChange}
+            value={data.imageUrl}
+            onChange={handleImage}
           />
           <TextArea
             name='content'
-            value={values.content}
+            value={data.content}
             placeholder='본문 내용을 입력해주세요'
             onChange={onChange}
           >
@@ -183,13 +187,13 @@ const Memory = () => {
             태그
           </TextInput>
           <S.TagBox>
-            {values.tags.map((tag) => (
+            {data.tags.map((tag) => (
               <span key={tag}>{`#${tag}`}</span>
             ))}
           </S.TagBox>
           <TextInput
             name='location'
-            value={values.location}
+            value={data.location}
             onChange={onChange}
             placeholder='장소를 입력해주세요'
           >
@@ -197,21 +201,21 @@ const Memory = () => {
           </TextInput>
           <TextInput
             name='moment'
-            value={values.moment}
+            value={data.moment}
             onChange={onChange}
             placeholder='추억의 순간을 입력해주세요'
           >
             추억의 순간
           </TextInput>
           <PublicToggle
-            value={values.isPublic}
+            value={data.isPublic}
             onToggle={onToggle}
           >
             추억 공개 설정
           </PublicToggle>
           <TextInput
             name='postPassword'
-            value={values.postPassword}
+            value={data.postPassword}
             onChange={onChange}
             placeholder='추억의 비밀번호를 생성해주세요'
           >
@@ -227,7 +231,7 @@ const Memory = () => {
             onOpen={openModal}
           />
           <S.HorizontalLine />
-          <S.MemoryImage src={mockImage}/>
+          <S.MemoryImage src={data.imageUrl}/>
           <S.MemoryContent>{data.content}</S.MemoryContent>
           <BtnLarge onClick={handleReply}>댓글 등록하기</BtnLarge>
           <Reply /> 

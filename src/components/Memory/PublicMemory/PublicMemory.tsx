@@ -16,7 +16,7 @@ const PublicMemory = ({ groupId, itemData }: PublicMemoryProps) => {
   
   return(
     <S.PublicMemoryWrapper onClick={() => handleNavigate()}>
-      <S.GroupImage />
+      <S.GroupImage src={itemData.imageUrl}/>
 
       <S.NicknameBox>
         <S.NicknameText>{itemData.nickname}</S.NicknameText>

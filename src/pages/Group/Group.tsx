@@ -11,7 +11,7 @@ import TextInput from '../../components/Form/TextInput/TextInput';
 import ImageInput from '../../components/Form/ImageInput/ImageInput';
 import PublicToggle from '../../components/Form/PublicToggle/PublicToggle';
 import { instance } from '../../apis/client';
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 
 interface GroupCreateType {
   name: string;
@@ -27,6 +27,7 @@ const Group = () => {
   const location = useLocation();
   const groupItem = location.state.groupItem;
   const { groupId } = useParams();
+  const [file, setFile] = useState<File | null>(null);  
 
   const [values, setValues] = useState<GroupCreateType>({
     name: groupItem.name,
@@ -42,6 +43,23 @@ const Group = () => {
 
   const handleOpen = () => {
     openModal();
+  };
+
+  console.log(values)
+  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
+    if(file){
+      reader.readAsDataURL(file);
+
+      reader.onloadend = () => { 
+        setValues({
+        ...values,
+          [e.target.name]: reader.result
+        });
+      };
+      setFile(file);
+    }
   };
   
   const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -59,15 +77,24 @@ const Group = () => {
   };
 
   const putGroup = async () => {
+    const formData = new FormData();
+    if(file){
+      formData.append('imageUrl', file);
+    }
+    formData.append('name', values.name);
+    formData.append('introduction', values.introduction);
+    formData.append('isPublic', String(values.isPublic));
+    formData.append('password', values.password);
+
     try{
-      const response = await instance.put(`/groups/${groupId}/`, values);
+      const response = await instance.put(`/groups/${groupId}/`, formData);
       console.log(response);
       closeModal();
     }
     catch(error){
       console.log(error);
     }
-  }
+  };
 
   return(
     <S.GroupWrapper>
@@ -75,7 +102,7 @@ const Group = () => {
         <Modal
           onClose={closeModal}
           title='그룹 정보 수정'
-          BtnText='삭제하기'
+          BtnText='수정하기'
           onClick={putGroup}
         >
           <TextInput
@@ -89,7 +116,7 @@ const Group = () => {
           <ImageInput
             name='imageUrl'
             value={values.imageUrl}
-            onChange={onChange}
+            onChange={handleImage}
           />
           <TextArea
             name='introduction'
@@ -111,7 +138,7 @@ const Group = () => {
             onChange={onChange}
             placeholder='수정 권한 인증'
           >
-            비밀번호 설정
+            수정 권한 인증
           </TextInput>
         </Modal>
       }

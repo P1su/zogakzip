@@ -41,17 +41,8 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
     moment: '',
     isPublic: true,
   });
+  const [file, setFile] = useState<File | null>(null);  
 
-  const postMemory = async () => {
-    try{
-      const response = await instance.post(`/groups/posts/${groupId}`,values
-      );
-      console.log(response);
-    }
-    catch (error){
-      console.log(error);
-    }
-  }
 
   const handleKeydown = () => {
     setValues(prevValues => ({
@@ -85,6 +76,45 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
     }));
   };
 
+  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
+    if(file){
+      reader.readAsDataURL(file);
+
+      reader.onloadend = () => { 
+        setValues({
+        ...values,
+          [e.target.name]: reader.result
+        });
+      };
+      setFile(file);
+    }
+  };
+
+  const postMemory = async () => {
+    const formData = new FormData();
+    if(file){
+      formData.append('imageUrl', file);
+    }
+    formData.append('nickname', values.nickname);
+    formData.append('title', values.title);
+    formData.append('content', values.content);
+    formData.append('postPassword', values.postPassword);
+    formData.append('groupPassword', values.groupPassword);
+    formData.append('tags', values.tags.join(','));
+    formData.append('location', values.location);
+    formData.append('moment', values.moment);
+    formData.append('isPublic', String(values.isPublic));
+    try{
+      const response = await instance.post(`/groups/posts/${groupId}`,formData);
+      console.log(response);
+    }
+    catch (error){
+      console.log(error);
+    }
+  };
+
 
   console.log(values)
   return(
@@ -92,7 +122,7 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
       {isOpen &&
         <Modal
           onClose={closeModal}
-          title='그룹 삭제'
+          title='그룹 권한 인증'
           BtnText='제출하기'
           onClick={postMemory}
         >
@@ -102,7 +132,7 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
             onChange={onChange}
             placeholder='그룹 비밀번호를 입력해주세요.'
           >
-            삭제 권한 인증
+            그룹 권한 인증
           </TextInput>
         </Modal>
       }
@@ -127,7 +157,7 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
           <ImageInput
             name='imageUrl'
             value={values.imageUrl}
-            onChange={onChange}
+            onChange={handleImage}
           />
           <TextArea
             name='content'

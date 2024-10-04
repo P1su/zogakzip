@@ -34,17 +34,19 @@ const CreateGroup = () => {
   };
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    if(file){
+      reader.readAsDataURL(file);
 
-    reader.onloadend = () => { 
-      setValues({
-      ...values,
-        [e.target.name]: reader.result
-      });
-    };
-    setFile(file);
+      reader.onloadend = () => { 
+        setValues({
+        ...values,
+          [e.target.name]: reader.result
+        });
+      };
+      setFile(file);
+    }
   };
 
   const postData = async () =>{

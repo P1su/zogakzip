@@ -18,17 +18,7 @@ const MemoryList = ({ groupId }: MemoryListProps) => {
   
   const fetchMemory = async () => {
     try{
-      const response = await instance.get(`/groups/posts/${groupId}`, {
-        params: {
-          pages: 1,
-          pageSize: 10,
-          sortBy: 'latest',
-          keyword: '',
-          isPublic: true,
-          groupId: groupId,
-          }
-        }
-      );
+      const response = await instance.get(`/groups/posts/${groupId}`);
       setData(response.data.data);
       setCount(response.data.totalItemCount);
       console.log(response);

@@ -73,7 +73,13 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
 
       <S.InfoBox>
         <S.InfoTitle>{memoryData.title}</S.InfoTitle>
-        <S.TagBox>#인천 #인천</S.TagBox>
+        <S.TagBox>
+          {
+            memoryData.tags.map(tag => (
+              <S.TagSpan key={tag}>{`#${tag}`}</S.TagSpan>
+            ))
+          }
+        </S.TagBox>
       </S.InfoBox>
 
       <S.InfoFooter>
