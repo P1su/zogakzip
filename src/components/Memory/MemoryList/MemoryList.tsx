@@ -16,7 +16,6 @@ const MemoryList = ({ groupId }: MemoryListProps) => {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
 
-
   const handleNavigate = () => {
     navigate('/create-memory');
   };
@@ -27,7 +26,6 @@ const MemoryList = ({ groupId }: MemoryListProps) => {
         const response = await instance.get(`/groups/posts/${groupId}`);
         setData(response.data.data);
         setCount(response.data.totalItemCount);
-        console.log(response);
       }
       catch(error){
         console.log(error);

@@ -1,6 +1,7 @@
 import * as S from './PublicMemory.style';
 import MemoryType from '../../../types/MemoryType';
 import { useNavigate } from 'react-router-dom';
+import { IcComment, IcFlowerIcon } from '../../../assets/svg';
 
 interface PublicMemoryProps {
   groupId: number;
@@ -33,10 +34,15 @@ const PublicMemory = ({ groupId, itemData }: PublicMemoryProps) => {
       <S.MeomryFooter>
         <S.FooterBox>
           <S.SubTitleSpan>{itemData.location}</S.SubTitleSpan>
+          <S.SubTitleSpan>·</S.SubTitleSpan>
           <S.SubTitleSpan>{itemData.moment}</S.SubTitleSpan>
         </S.FooterBox>
         <S.FooterBox>
-          <S.TextSpan>{itemData.likeCount}</S.TextSpan>
+          <S.FooterFlexBox>
+            <IcFlowerIcon />
+            <S.TextSpan>{itemData.likeCount}</S.TextSpan>
+          </S.FooterFlexBox>
+          <IcComment />
           <S.TextSpan>{itemData.commentCount}</S.TextSpan>
         </S.FooterBox>
       </S.MeomryFooter>
