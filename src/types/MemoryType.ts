@@ -10,6 +10,7 @@ interface MemoryType {
   likeCount: number;
   commentCount: number;
   createdAt: string; 
+  content: string;
 }
 
 export default MemoryType;

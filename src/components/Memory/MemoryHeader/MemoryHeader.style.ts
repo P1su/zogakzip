@@ -48,6 +48,7 @@ export const PublicSpan = styled.span`
 `;
 export const MemoryEditSpan = styled.span`
   ${({ theme }) =>  theme.fonts.font_08};
+  cursor: pointer;
 `;
 export const MomentSpan = styled.span`
   ${({ theme }) =>  theme.fonts.font_05 };
