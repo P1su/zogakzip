@@ -64,7 +64,7 @@ const Memory = () => {
     };
   
     fetchMemory();
-  }, [postId]); // Add 'fetchMemory' to the dependency array
+  }, [postId]);
 
   const handleKeydown = () => {
     setData(prevValues => ({
