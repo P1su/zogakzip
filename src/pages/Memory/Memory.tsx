@@ -89,22 +89,11 @@ const Memory = () => {
   };
 
   const putMemory  = async () => {
-    const formData = new FormData();
-    if(file){
-      formData.append('imageUrl', file);
-    }
-    formData.append('nickname', data.nickname);
-    formData.append('title', data.title);
-    formData.append('content', data.content);
-    formData.append('postPassword', data.postPassword);
-    formData.append('tags', data.tags.join(' '));
-    formData.append('location', data.location);
-    formData.append('moment', data.moment);
-    formData.append('isPublic', data.isPublic? 'true' : 'false');
-
     try{
       const response = await instance.put(`/posts/${postId}`, data);
       console.log(response);
+      console.log(file);
+      closeModal();
     }
     catch(error){
       console.log(error);
@@ -146,85 +135,88 @@ const Memory = () => {
           title='추억 수정하기'
           BtnText='수정하기'
           onClick={putMemory}
+          widthProps='112rem'
         >
-          <S.FormBox>
-          <TextInput
-            name='nickname'
-            value={data.nickname}
-            onChange={onChange}
-            placeholder='닉네임을 입력해주세요'
-          >
-            닉네임
-          </TextInput>
-          <TextInput
-            name='title'
-            value={data.title}
-            onChange={onChange}
-            placeholder='제목을 입력해주세요'
-          >
-            제목
-          </TextInput>
-          <ImageInput
-            name='imageUrl'
-            value={data.imageUrl}
-            onChange={handleImage}
-          />
-          <TextArea
-            name='content'
-            value={data.content}
-            placeholder='본문 내용을 입력해주세요'
-            onChange={onChange}
-          >
-            본문
-          </TextArea>
-        </S.FormBox>
+          <S.ModalBox>
+            <S.FormBox>
+              <TextInput
+                name='nickname'
+                value={data.nickname}
+                onChange={onChange}
+                placeholder='닉네임을 입력해주세요'
+              >
+                닉네임
+              </TextInput>
+              <TextInput
+                name='title'
+                value={data.title}
+                onChange={onChange}
+                placeholder='제목을 입력해주세요'
+              >
+                제목
+              </TextInput>
+              <ImageInput
+                name='imageUrl'
+                value={data.imageUrl}
+                onChange={handleImage}
+              />
+              <TextArea
+                name='content'
+                value={data.content}
+                placeholder='본문 내용을 입력해주세요'
+                onChange={onChange}
+              >
+                본문
+              </TextArea>
+            </S.FormBox>
 
-        <S.FormBox>
-          <TextInput
-            name='tag'
-            value={tag}
-            onChange={onChangeTag}
-            onKeyDown={onEnter}
-            placeholder='태그를 입력해주세요'
-          >
-            태그
-          </TextInput>
-          <S.TagBox>
-            {data.tags.map((tag) => (
-              <span key={tag}>{`#${tag}`}</span>
-            ))}
-          </S.TagBox>
-          <TextInput
-            name='location'
-            value={data.location}
-            onChange={onChange}
-            placeholder='장소를 입력해주세요'
-          >
-            장소
-          </TextInput>
-          <TextInput
-            name='moment'
-            value={data.moment}
-            onChange={onChange}
-            placeholder='추억의 순간을 입력해주세요'
-          >
-            추억의 순간
-          </TextInput>
-          <PublicToggle
-            value={data.isPublic}
-            onToggle={onToggle}
-          >
-            추억 공개 설정
-          </PublicToggle>
-          <TextInput
-            name='postPassword'
-            value={data.postPassword}
-            onChange={onChange}
-            placeholder='추억의 비밀번호를 생성해주세요'
-          >
-            비밀번호 생성
-          </TextInput>
-          </S.FormBox>
+            <S.FormBox>
+              <TextInput
+                name='tag'
+                value={tag}
+                onChange={onChangeTag}
+                onKeyDown={onEnter}
+                placeholder='태그를 입력해주세요'
+              >
+                태그
+              </TextInput>
+              <S.TagBox>
+                {data.tags.map((tag) => (
+                  <span key={tag}>{`#${tag}`}</span>
+                ))}
+              </S.TagBox>
+              <TextInput
+                name='location'
+                value={data.location}
+                onChange={onChange}
+                placeholder='장소를 입력해주세요'
+              >
+                장소
+              </TextInput>
+              <TextInput
+                name='moment'
+                value={data.moment}
+                onChange={onChange}
+                placeholder='추억의 순간을 입력해주세요'
+              >
+                추억의 순간
+              </TextInput>
+              <PublicToggle
+                value={data.isPublic}
+                onToggle={onToggle}
+              >
+                추억 공개 설정
+              </PublicToggle>
+              <TextInput
+                name='postPassword'
+                value={data.postPassword}
+                onChange={onChange}
+                placeholder='추억의 비밀번호를 생성해주세요'
+              >
+                비밀번호 생성
+              </TextInput>
+            </S.FormBox>
+          </S.ModalBox>
         </Modal>
       }
       {data?

@@ -9,13 +9,14 @@ interface ModalProps {
   title: string;
   BtnText: string;
   onClick: () => void;
+  widthProps?: string;
 }
 
-const Modal = ({ onClose, children, title, BtnText, onClick }: ModalProps) => {
+const Modal = ({ onClose, children, title, BtnText, onClick, widthProps }: ModalProps) => {
   return(
     <>
       <S.Overlay />
-      <S.ModalWrapper>
+      <S.ModalWrapper widthProps={widthProps}>
         <S.DeleteIconWrapper onClick={() => onClose()}>
           <IcDelete />
         </S.DeleteIconWrapper>
