@@ -35,7 +35,9 @@ const PrivateGroupItem = ({ itemData }: PrivateGroupItemProps) => {
   const diffDate = Math.floor((today.getTime() - itemDate.getTime()) / (1000 * 60 * 60 * 24));
 
   const handleNavigate = () => {
-    navigate(`/group/${itemData.id}`, {state: {groupId: itemData.id, groupItem: itemData}});
+    navigate(`/group/verify`, {state: { groupId: itemData.id }});
+
+    //navigate(`/group/${itemData.id}`, {state: {groupId: itemData.id, groupItem: itemData}});
   };
 
   return(

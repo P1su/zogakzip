@@ -33,12 +33,12 @@ const GroupList = ({ isPublic }: GroupListProps) => {
           keyword: '',
           isPublic: isPublic
         },
-      });
+    });
   
-      console.log(response.data);
-      setData(response.data.data);
-      setCount(response.data.totalItemCount);
-    };
+    console.log(response.data);
+    setData(response.data.data);
+    setCount(response.data.totalItemCount);
+  };
 
     fetchData();
   }, [isPublic]);
