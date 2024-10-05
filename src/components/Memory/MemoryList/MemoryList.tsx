@@ -54,7 +54,7 @@ const MemoryList = ({ groupId }: MemoryListProps) => {
           :
             <S.NonMemoryBox>
               <S.NonMemoryImage src={nonMemory} />
-              <BtnLarge onClick={() => {handleNavigate()}}>그룹 만들기</BtnLarge>
+              <BtnLarge onClick={() => {handleNavigate()}}>추억 올리기</BtnLarge>
             </S.NonMemoryBox>
       }
     </S.MemoryListWrapper>

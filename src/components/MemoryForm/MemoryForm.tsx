@@ -8,6 +8,7 @@ import TextArea from '../Form/TextArea/TextArea';
 import PublicToggle from '../Form/PublicToggle/PublicToggle';
 import useModal from '../../hooks/useModal';
 import Modal from '../Modal/Modal';
+import { useNavigate } from 'react-router-dom';
 
 interface CreateMemoryType {
   nickname: string;
@@ -29,6 +30,7 @@ interface MemoryFormProps {
 const MemoryForm = ({ groupId }: MemoryFormProps) => {
   const [isOpen, openModal, closeModal] = useModal();
   const [tag, setTag] = useState('');
+  const navigate = useNavigate();
   const [values, setValues] = useState<CreateMemoryType>({
     nickname: '',
     title: '',
@@ -109,6 +111,7 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
     try{
       const response = await instance.post(`/groups/posts/${groupId}`,formData);
       console.log(response);
+      navigate(`/group/${groupId}/memory/${response.data.id}`);
     }
     catch (error){
       console.log(error);
@@ -196,7 +199,7 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
             name='moment'
             value={values.moment}
             onChange={onChange}
-            placeholder='추억의 순간을 입력해주세요'
+            placeholder='YYYY-MM-DD'
           >
             추억의 순간
           </TextInput>
