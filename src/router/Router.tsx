@@ -6,6 +6,7 @@ import Group from '../pages/Group/Group';
 import CreateMemory from '../pages/CreateMemory/CreateMemory';
 import Memory from '../pages/Memory/Memory';
 import GroupVerify from '../pages/GroupVerify/GroupVerify';
+import NotFound from '../pages/NotFound/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/group/verify',
         element: <GroupVerify />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
       },
     ],
   },
