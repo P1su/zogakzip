@@ -6,26 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import { instance } from '../../apis/client';
 import { useEffect, useState } from 'react';
 import GroupType from './../../types/GroupType';
+import PrivateGroupItem from './PrivateGroupItem/PrtivateGroupItem';
 
-const GroupList = () => {
+interface GroupListProps{
+  isPublic: boolean;
+}
+
+const GroupList = ({ isPublic }: GroupListProps) => {
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
-
-  const fetchData = async () => {
-    const response = await instance.get(`/groups`, {
-      params:{
-        pages: 1,
-        pageSize: 10,
-        sortBy: 'latest',
-        keyword: '',
-        isPublic: true
-      },
-    });
-
-    console.log(response.data);
-    setData(response.data.data);
-    setCount(response.data.totalItemCount);
-  };
   
   //const data = groupMockData;
   const navigate = useNavigate();
@@ -35,8 +24,24 @@ const GroupList = () => {
   };
   
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await instance.get(`/groups`, {
+        params:{
+          pages: 1,
+          pageSize: 10,
+          sortBy: 'latest',
+          keyword: '',
+          isPublic: isPublic
+        },
+    });
+  
+    console.log(response.data);
+    setData(response.data.data);
+    setCount(response.data.totalItemCount);
+  };
+
     fetchData();
-  }, []);
+  }, [isPublic]);
 
   return(
     <S.GroupListWrapper>
@@ -46,10 +51,17 @@ const GroupList = () => {
             <S.GroupBox>
               {
                 data.map((item: GroupType) => (
-                  <PublicGroupItem
-                    key={item.id}
-                    itemData={item}
-                  />
+                  item.isPublic 
+                    ?
+                      <PublicGroupItem
+                        key={item.id}
+                        itemData={item}
+                      />
+                    :
+                      <PrivateGroupItem
+                        key={item.id}
+                        itemData={item}
+                      />
                 ))
               }
             </S.GroupBox>

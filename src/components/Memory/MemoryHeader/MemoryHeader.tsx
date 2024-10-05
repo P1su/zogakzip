@@ -5,15 +5,19 @@ import * as S from './MemoryHeader.style';
 import { ChangeEvent, useState } from 'react';
 import { instance } from '../../../apis/client';
 import MemoryType from '../../../types/MemoryType';
+import { IcComment, IcFlowerIcon } from '../../../assets/svg';
+import { useNavigate } from 'react-router-dom';
 
 interface MemoryHeaderProps {
   memoryData: MemoryType;
+  groupId: number;
   onOpen: () => void;
 }
 
-const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
+const MemoryHeader = ({ memoryData, groupId, onOpen }: MemoryHeaderProps) => {
   const [isOpen, openModal, closeModal] = useModal();
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleModal = () => {
     openModal();
@@ -31,6 +35,7 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
         },
       });
       console.log(response);
+      navigate(`/group/${groupId}`, {state: {groupId: groupId}});
     }
     catch(error){
       console.log(error);
@@ -42,7 +47,7 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
       {isOpen &&
         <Modal
           onClose={closeModal}
-          title='그룹 삭제'
+          title='추억 삭제'
           BtnText='삭제하기'
           onClick={handleDelete}
         >
@@ -50,7 +55,7 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
             name='password'
             value={password}
             onChange={onChange}
-            placeholder='그룹 비밀번호를 입력해주세요.'
+            placeholder='추억 비밀번호를 입력해주세요.'
           >
             삭제 권한 인증
           </TextInput>
@@ -59,7 +64,7 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
       <S.InfoHeader>
         <S.HeaderFlexBox>
           <S.NicknameSpan>{memoryData.nickname}</S.NicknameSpan>
-          <S.PublicSpan>공개</S.PublicSpan>
+          <S.PublicSpan>{`${memoryData.isPublic ? '공개' : '비공개'}`}</S.PublicSpan>
         </S.HeaderFlexBox>
         <S.HeaderFlexBox>
           <S.MemoryEditSpan onClick={() => onOpen()}>
@@ -89,8 +94,14 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
           </S.MomentSpan>
         </S.FooterFlexBox>
         <S.FooterFlexBox>
-          <S.CountSpan>{memoryData.likeCount}</S.CountSpan>
-          <S.CountSpan>{memoryData.commentCount}</S.CountSpan>
+          <S.SpanFlexBox>
+            <IcFlowerIcon />
+            <S.CountSpan>{memoryData.likeCount}</S.CountSpan>
+          </S.SpanFlexBox>
+          <S.SpanFlexBox>
+            <IcComment />
+            <S.CountSpan>{memoryData.commentCount}</S.CountSpan>
+          </S.SpanFlexBox>
         </S.FooterFlexBox>
       </S.InfoFooter>
     </S.MemoryHeaderWrapper>

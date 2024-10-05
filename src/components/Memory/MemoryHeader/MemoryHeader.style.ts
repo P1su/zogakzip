@@ -22,18 +22,24 @@ export const InfoBox = styled.div`
 export const InfoFooter = styled.div`
 ${({ theme: { mixin } }) => mixin.flexBox({})};
   width: 100%;
-  gap: 2rem;
+  gap: 4rem;
 `;
 export const FooterFlexBox = styled.div`
   ${({ theme: { mixin } }) => mixin.flexBox({})};
   gap: 2rem;
 `;
+export const SpanFlexBox = styled.div`
+  ${({ theme: { mixin } }) => mixin.flexBox({ align: 'center' })};
+  gap: 1rem;
+`;
 export const InfoTitle = styled.p`
   ${({ theme }) =>  theme.fonts.big_title};
 `;
 export const TagBox = styled.div`
+  display: flex;
   width: 100%;
   ${({ theme }) =>  theme.fonts.font_03};
+  gap: 1rem;
 `;
 export const TagSpan = styled.span`
   ${({ theme }) =>  theme.fonts.font_03};
@@ -47,11 +53,11 @@ export const PublicSpan = styled.span`
   color: ${({ theme }) => theme.colors.G_03};
 `;
 export const MemoryEditSpan = styled.span`
-  ${({ theme }) =>  theme.fonts.font_08};
+  ${({ theme }) =>  theme.fonts.font_06};
   cursor: pointer;
 `;
 export const MomentSpan = styled.span`
-  ${({ theme }) =>  theme.fonts.font_05 };
+  ${({ theme }) =>  theme.fonts.font_05};
 `;
 export const CountSpan = styled.span`
   ${({ theme }) =>  theme.fonts.font_08};

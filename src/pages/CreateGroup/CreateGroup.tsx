@@ -109,7 +109,7 @@ const CreateGroup = () => {
           value={values.isPublic}
           onToggle={onToggle}
         >
-          추억 공개 선택
+          그룹 공개 선택
         </PublicToggle>
         <TextInput
           name='password'
@@ -117,10 +117,11 @@ const CreateGroup = () => {
           onChange={onChange}
           placeholder='비밀번호를 입력해 주세요'
         >
-          비밀번호 설정
+          비밀번호 생성
         </TextInput>
-
-        <BtnLarge onClick={() => handleForm()}>만들기</BtnLarge>
+        <S.ButtonField>
+          <BtnLarge onClick={() => handleForm()}>만들기</BtnLarge>
+        </S.ButtonField>
       </S.GroupForm>
     </S.CreateGroupWrapper>
   );
