@@ -18,5 +18,5 @@ export const ContentTextSpan = styled.span`
   ${({ theme: { mixin } }) => mixin. flexBox({ align: 'center' })};
   ${({ theme }) => theme.fonts.font_08};
   width: 5rem;
-  padding-top: 2rem;
+  padding-top: 1rem;
 `;

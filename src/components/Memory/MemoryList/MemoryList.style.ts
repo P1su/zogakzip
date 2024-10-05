@@ -4,6 +4,7 @@ export const MemoryListWrapper = styled.div`
   width: 156rem;
   height: 100vh;
   padding-top: 2rem;
+  padding-bottom: 5rem;
 `;
 export const NonMemoryBox = styled.div`
   ${({ theme: { mixin } }) => mixin.flexCenter({})};

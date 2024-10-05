@@ -34,8 +34,14 @@ ${({ theme : { mixin } }) => mixin.flexBox({ justify: 'space-between' })};
   padding-top: 2.5rem;
 `;
 export const FooterBox = styled.div`
-  display: flex;
-  gap: 2rem;
+  ${({ theme : { mixin } }) => mixin.flexBox({ justify: 'space-between', align: 'center' })};
+  width: 10rem;  
+  gap: 1rem;
+`;
+export const FooterFlexBox = styled.div`
+  ${({ theme : { mixin } }) => mixin.flexBox({ align: 'center' })};
+  padding-right: 2rem;
+  gap: 1rem;
 `;
 export const NicknameText = styled.span`
   ${({ theme }) => theme.fonts.font_08};

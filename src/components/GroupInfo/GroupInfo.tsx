@@ -4,49 +4,52 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useModal from '../../hooks/useModal';
 import Modal from '../Modal/Modal';
 import TextInput from '../Form/TextInput/TextInput';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 interface GroupInfoProps {
-  name: string;
-  imageUrl: string;
-  badgeCount: number;
-  likeCount: number;
-  introduction: string;
+
   onOpen: () => void;
 }
 
-const GroupInfo = ({ name, imageUrl, badgeCount, likeCount, introduction, onOpen }: GroupInfoProps) => {
+const GroupInfo = ({ onOpen }: GroupInfoProps) => {
   const [isOpen, openModal, closeModal] = useModal();
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
+  const [data, setData] = useState({
+    name: '',
+    id: 0,
+    badgeCount: 0,
+    createdAt: new Date(),
+    imageUrl: '',
+    introduction: '',
+    isPublic: false,
+    likeCount: 0,
+    postCount: 0,
+  });
   const location = useLocation();
   const groupId = location.state.groupId;
 
-  const fetchGroupInfo = async () => {
-    const response = await instance.get(`/groups/${groupId}`, {
-    });
-    console.log(response);
-  };
 
-  fetchGroupInfo();
-  /*const mockData = {
-    "id": 123,
-    "name": "string",
-    "imageUrl": "string",
-    "isPublic": true,
-    "likeCount": 0,
-    "badges": ["badge1", "badge2"],
-    "postCount": 0,
-    "createdAt": "2024-02-22T07:47:49.803Z",
-    "introduction": "string"
-  };*/
+  useEffect(() => {
+    const fetchGroupInfo = async () => {
+      const response = await instance.get(`/groups/${groupId}`, {
+      });
+      console.log(response);
+      setData(response.data);
+    };
+
+    fetchGroupInfo();
+  }, [groupId]);
+
+  
+
   const handleModal = () => {
     openModal();
   };
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-  }
+  };
+
   const handleDelete = async () => {
     try{
       const response = await instance.delete(`/groups/${groupId}`, {
@@ -62,6 +65,12 @@ const GroupInfo = ({ name, imageUrl, badgeCount, likeCount, introduction, onOpen
     }
 
   };
+  const today = new Date();
+  const itemDate = new Date(data.createdAt);
+  const diffDate = Math.floor((today.getTime() - itemDate.getTime()) / (1000 * 60 * 60 * 24));
+
+
+
   return(
     <S.GroupInfoWrapper>
       {isOpen &&
@@ -81,23 +90,25 @@ const GroupInfo = ({ name, imageUrl, badgeCount, likeCount, introduction, onOpen
           </TextInput>
         </Modal>
       }
-      <S.GroupImg src={imageUrl} />
+      <S.GroupImg src={data.imageUrl} />
       <S.InfoBox>
         <S.InfoHeader>
           <S.HeaderFlexBox>
-            <S.HeaderText>날짜 | 공개</S.HeaderText>
+            <S.HeaderText>{`D+${diffDate}`}</S.HeaderText>
+            <S.HeaderBlurText>|</S.HeaderBlurText>
+            <S.HeaderBlurText>{`${data.isPublic ? '공개' : '비공개'}`}</S.HeaderBlurText>
           </S.HeaderFlexBox>
-          <S.HeaderFlexBox>
-            <S.HeaderText onClick={() => onOpen()}>그룹 수정하기</S.HeaderText>
-            <S.HeaderText onClick={() => handleModal()}>그룹 삭제하기</S.HeaderText>
-          </S.HeaderFlexBox>
+          <S.HeaderFlexBox2>
+            <S.HeaderText onClick={() => onOpen()}>그룹 정보 수정하기</S.HeaderText>
+            <S.HeaderBlurText onClick={() => handleModal()}>그룹 삭제하기</S.HeaderBlurText>
+          </S.HeaderFlexBox2>
         </S.InfoHeader>
         <S.TitleBox>
-          <S.TitleText>{name}</S.TitleText>
-          <S.SubTitleText>{badgeCount}</S.SubTitleText>
-          <S.SubTitleText>{likeCount}</S.SubTitleText>
+          <S.TitleText>{data.name}</S.TitleText>
+          <S.SubTitleText>{`추억 ${data.postCount}`}</S.SubTitleText>
+          <S.SubTitleText>{`그룹 공감 ${data.likeCount}`}</S.SubTitleText>
         </S.TitleBox>
-        <S.IntroText>{introduction}</S.IntroText>
+        <S.IntroText>{data.introduction}</S.IntroText>
       </S.InfoBox>
     </S.GroupInfoWrapper>
   );

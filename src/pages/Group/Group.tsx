@@ -28,6 +28,11 @@ const Group = () => {
   const [isOpen, openModal, closeModal] = useModal();
   const navigate = useNavigate();
   const { groupId } = useParams();
+  const [isFetch, setIsFetch] = useState(false);
+  const [isOn, setIsOn] = useState<boolean>(true);
+  const handelToggle = () => {
+    setIsOn(!isOn);
+  };
 
   const [values, setValues] = useState<GroupCreateType>({
     name: '',
@@ -48,7 +53,6 @@ const Group = () => {
     openModal();
   };
 
-  console.log(values)
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     const reader = new FileReader();
@@ -84,6 +88,7 @@ const Group = () => {
       const response = await instance.put(`/groups/${groupId}/`, values);
       console.log(response);
       closeModal();
+      setIsFetch(prev => !prev);
     }
     catch(error){
       console.log(error);
@@ -99,7 +104,7 @@ const Group = () => {
     };
 
     fetchGroupInfo();
-  }, [groupId]);
+  }, [isFetch, groupId]);
 
   return(
     <S.GroupWrapper>
@@ -147,21 +152,19 @@ const Group = () => {
           </TextInput>
         </Modal>
       }
-      <GroupInfo 
-        name={values.name}
-        imageUrl={values.imageUrl}
-        badgeCount={values.badgeCount}
-        likeCount={values.likeCount}
-        introduction={values.introduction}
-        onOpen={handleOpen}
-      />
+        <GroupInfo 
+          onOpen={handleOpen}
+        />
         <S.MemoryHeader>
           <S.MemoryListTitle>추억 목록</S.MemoryListTitle>
           <S.ButtonField>
             <BtnSmall onClick={handleNavigate}>추억올리기</BtnSmall>
           </S.ButtonField>
         </S.MemoryHeader>
-        <ToolBar />
+        <ToolBar 
+          isOn={isOn}
+          onToggle={handelToggle}
+        />
         <MemoryList groupId={Number(groupId)}/>
     </S.GroupWrapper>
   );

@@ -12,6 +12,7 @@ const BaseInputStyle = css`
 export const CreateGroupWrapper = styled.div`
   ${({ theme: { mixin } }) => mixin.flexCenter({})};
   width: 100%;
+  padding-top: 6rem;
 `;
 export const GroupForm = styled.form`
   ${({ theme: { mixin } }) => mixin.flexCenter({})};
@@ -56,6 +57,7 @@ export const FileTextBox = styled.input`
 `;
 export const PageTitleText = styled.span`
   ${({ theme }) => theme.fonts.title};
+  padding-bottom: 2rem;
 `;
 export const InputTitleText = styled.span`
   ${({ theme }) => theme.fonts.font_05};
@@ -66,3 +68,6 @@ export const ContentText = styled.span`
   width: 5rem;
   padding-top: 2rem;
 `;
+export const ButtonField = styled.div`
+  padding-top: 6rem;
+`

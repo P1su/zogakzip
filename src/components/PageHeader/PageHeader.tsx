@@ -10,10 +10,14 @@ const PageHeader = () => {
   const handleNavigate = () => {
     navigate('create-group');
   };
+
+  const handleMain = () => {
+    navigate('/');
+  }
   
   return(
     <S.PageHeaderWrapper>
-      <S.IconField>
+      <S.IconField onClick={() => handleMain()}>
         <IcLogo />
       </S.IconField>
       {currentPath === '/' 

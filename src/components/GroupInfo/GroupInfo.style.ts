@@ -5,7 +5,7 @@ export const GroupInfoWrapper = styled.div`
   width: 156rem;
   height: 27.3rem;
   gap: 6rem;
-  margin-bottom: 25rem;
+  margin-bottom: 26rem;
 `;
 export const GroupImg = styled.img`
   width: 26.2rem;
@@ -15,6 +15,7 @@ export const InfoBox = styled.div`
 ${({ theme: { mixin }}) => mixin.flexBox({ direction: 'column' })};
   display: flex;
   width: 100%;
+  height: 27.3rem;
   gap: 2rem;
 `;
 export const InfoHeader = styled.div`
@@ -22,16 +23,20 @@ ${({ theme: { mixin }}) => mixin.flexBox({ justify : 'space-between' })};
   width: 100%;
 `;
 export const HeaderFlexBox = styled.div`
-  ${({ theme: { mixin }}) => mixin.flexBox({})};
-  gap: 4rem;
+  ${({ theme: { mixin }}) => mixin.flexBox({justify: 'space-between' })};
+  width: 11rem;
+`;
+export const HeaderFlexBox2 = styled.div`
+  ${({ theme: { mixin }}) => mixin.flexBox({justify: 'space-between' })};
+  width: 25rem;
 `;
 export const TitleBox = styled.div`
-  ${({ theme: { mixin }}) => mixin.flexBox({})};
+  ${({ theme: { mixin }}) => mixin.flexBox({ align: 'center' })};
   gap: 3rem;
 `;
 export const TitleText = styled.span`
   ${({ theme }) => theme.fonts.big_title};
-  width: 94.4rem;
+  
 `;
 export const SubTitleText = styled.span`
   ${({ theme }) => theme.fonts.font_02};
@@ -43,3 +48,8 @@ export const HeaderText = styled.span`
   ${({ theme }) => theme.fonts.font_08};
   cursor: pointer;
 `;
+export const HeaderBlurText = styled.span`
+  ${({ theme }) => theme.fonts.font_08};
+  color: ${({ theme }) => theme.colors.G_01};
+  cursor: pointer;
+`

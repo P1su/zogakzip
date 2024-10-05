@@ -6,9 +6,14 @@ export const MemoryWrapper = styled.div`
   height: 100%;
   gap: 6rem;
 `;
+export const ModalBox = styled.div`
+  ${({ theme : { mixin }}) => mixin.flexBox({ justify: 'center' })};
+  width: 100%;
+  gap: 16rem;
+`;
 export const HorizontalLine = styled.div`
   width: 156rem;
-  border-bottom: 1px solid  ${({ theme }) => theme.colors.G_01}; 
+  border-bottom: 1px solid  ${({ theme }) => theme.colors.G_03}; 
 `;
 export const MemoryImage = styled.img`
   width: 78rem;
@@ -19,7 +24,6 @@ export const MemoryContent = styled.p`
   width: 78rem;
 `;
 export const FormBox = styled.div`
-  width: 100%;
 `;
 export const TagBox = styled.div`
   ${({ theme: { mixin } }) => mixin.flexBox({})};
@@ -29,4 +33,7 @@ export const TagBox = styled.div`
     ${({ theme }) => theme.fonts.font_08};
     color: ${({ theme }) => theme.colors.G_01};
   }  
+`;
+export const ButtonField = styled.div`
+  padding-top: 6rem;
 `;
