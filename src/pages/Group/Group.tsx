@@ -53,7 +53,6 @@ const Group = () => {
     openModal();
   };
 
-  console.log(values)
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     const reader = new FileReader();
@@ -88,8 +87,8 @@ const Group = () => {
     try{
       const response = await instance.put(`/groups/${groupId}/`, values);
       console.log(response);
-      setIsFetch(prev => !prev);
       closeModal();
+      setIsFetch(prev => !prev);
     }
     catch(error){
       console.log(error);
