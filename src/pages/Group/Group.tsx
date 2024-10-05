@@ -28,6 +28,10 @@ const Group = () => {
   const [isOpen, openModal, closeModal] = useModal();
   const navigate = useNavigate();
   const { groupId } = useParams();
+  const [isOn, setIsOn] = useState<boolean>(true);
+  const handelToggle = () => {
+    setIsOn(!isOn);
+  };
 
   const [values, setValues] = useState<GroupCreateType>({
     name: '',
@@ -156,7 +160,10 @@ const Group = () => {
             <BtnSmall onClick={handleNavigate}>추억올리기</BtnSmall>
           </S.ButtonField>
         </S.MemoryHeader>
-        <ToolBar />
+        <ToolBar 
+          isOn={isOn}
+          onToggle={handelToggle}
+        />
         <MemoryList groupId={Number(groupId)}/>
     </S.GroupWrapper>
   );
