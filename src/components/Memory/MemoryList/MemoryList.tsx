@@ -17,7 +17,7 @@ const MemoryList = ({ groupId }: MemoryListProps) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/create-memory');
+    navigate('/create-memory', {state: {id: groupId}});
   };
 
   useEffect(() => {

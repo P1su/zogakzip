@@ -46,7 +46,7 @@ const Memory = () => {
   }
 );
 
-  const { postId } = useParams();
+  const { groupId, postId } = useParams();
 
   const handleReply = () => {
     alert('미구현 기능입니다.');
@@ -176,7 +176,7 @@ const Memory = () => {
                 value={tag}
                 onChange={onChangeTag}
                 onKeyDown={onEnter}
-                placeholder='태그를 입력해주세요'
+                placeholder='태그를 입력 후 Enter'
               >
                 태그
               </TextInput>
@@ -211,9 +211,9 @@ const Memory = () => {
                 name='postPassword'
                 value={data.postPassword}
                 onChange={onChange}
-                placeholder='추억의 비밀번호를 생성해주세요'
+                placeholder='추억의 비밀번호를 입력해주세요'
               >
-                비밀번호 생성
+                수정 권한 인증
               </TextInput>
             </S.FormBox>
           </S.ModalBox>
@@ -223,6 +223,7 @@ const Memory = () => {
         <>
           <MemoryHeader 
             memoryData={data}
+            groupId={Number(groupId)}
             onOpen={openModal}
           />
           <S.HorizontalLine />

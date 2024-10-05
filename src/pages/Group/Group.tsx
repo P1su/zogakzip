@@ -28,6 +28,7 @@ const Group = () => {
   const [isOpen, openModal, closeModal] = useModal();
   const navigate = useNavigate();
   const { groupId } = useParams();
+  const [isFetch, setIsFetch] = useState(false);
   const [isOn, setIsOn] = useState<boolean>(true);
   const handelToggle = () => {
     setIsOn(!isOn);
@@ -87,6 +88,7 @@ const Group = () => {
     try{
       const response = await instance.put(`/groups/${groupId}/`, values);
       console.log(response);
+      setIsFetch(prev => !prev);
       closeModal();
     }
     catch(error){
@@ -103,7 +105,7 @@ const Group = () => {
     };
 
     fetchGroupInfo();
-  }, [groupId]);
+  }, [isFetch, groupId]);
 
   return(
     <S.GroupWrapper>

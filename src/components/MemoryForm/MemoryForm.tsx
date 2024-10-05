@@ -104,7 +104,7 @@ const MemoryForm = ({ groupId }: MemoryFormProps) => {
     formData.append('content', values.content);
     formData.append('postPassword', values.postPassword);
     formData.append('groupPassword', values.groupPassword);
-    formData.append('tags', values.tags.join(','));
+    formData.append('tags', values.tags.join('#'));
     formData.append('location', values.location);
     formData.append('moment', values.moment);
     formData.append('isPublic', String(values.isPublic));

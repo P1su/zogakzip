@@ -6,15 +6,18 @@ import { ChangeEvent, useState } from 'react';
 import { instance } from '../../../apis/client';
 import MemoryType from '../../../types/MemoryType';
 import { IcComment, IcFlowerIcon } from '../../../assets/svg';
+import { useNavigate } from 'react-router-dom';
 
 interface MemoryHeaderProps {
   memoryData: MemoryType;
+  groupId: number;
   onOpen: () => void;
 }
 
-const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
+const MemoryHeader = ({ memoryData, groupId, onOpen }: MemoryHeaderProps) => {
   const [isOpen, openModal, closeModal] = useModal();
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleModal = () => {
     openModal();
@@ -32,6 +35,7 @@ const MemoryHeader = ({ memoryData, onOpen }: MemoryHeaderProps) => {
         },
       });
       console.log(response);
+      navigate(`/group/${groupId}`, {state: {groupId: groupId}});
     }
     catch(error){
       console.log(error);
